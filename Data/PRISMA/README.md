@@ -7,4 +7,4 @@ Follow these instructions to get them in your project:
 3. Move those files into Data/PRISMA/lake and Data/PRISMA/buoy
 4. Now you should be able to use these files in any scripts and analyses within this project, without having to push or pull them.
 
-**NOTE**: if these files are ever updated you will need to re-download the new version and replace the copy on your computer. The files clipped to the buoy were last updated March 21, 2023. The files clipped to the lake were replaced July 7, 2023 (Max removed cloud pixels from previous images).
+**NOTE**: if these files are ever updated you will need to re-download the new version and replace the copy on your computer. The files were last updated July 7, 2023 (Max removed cloud pixels from previous images and added 2022 images).
