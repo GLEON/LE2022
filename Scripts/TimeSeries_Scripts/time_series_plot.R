@@ -12,12 +12,12 @@ metabolism <- metabolism %>%
   mutate(year = year(SimDate))
   
 ice <- read_csv('Data/IceCover/cleaned_ice_cover.csv')
-ice<- ice %>%
+ice <- ice %>%
   mutate(year = year(Date)) %>%
   mutate(doy = yday(Date))
 
 metabolism_ice <- merge(metabolism, ice, by = c("year", "doy"))
-metabolism_filter<- metabolism_ice %>%
+metabolism_filter <- metabolism_ice %>%
   filter(Ice == "No") %>%
   filter(EpiNPP_mgC_L < 0.5)
 
@@ -37,6 +37,8 @@ buoy <- read_csv('Data/Buoy/daily_buoy.csv')
 buoy <- buoy %>%
   mutate(doy = yday(sampledate)) %>%
   rename("year" = year4)
+# There are two really high phycocyanin outliers that we want to remove (they're above 20000 RFU) so we can better visualize the trends on this figure. We are going to replace those values with NA.
+buoy$avg_phyco_rfu[buoy$avg_phyco_rfu >= 20000] <- NA
 
 # Add in the season boundaries by first creating an empty data frame of all possible dates
 empty <- data.frame(date = seq(as.Date("01-01-2000", format = "%m-%d-%Y"), as.Date("12-31-2022", format = "%m-%d-%Y"), by = "day")) %>%
@@ -55,39 +57,54 @@ DATA <- left_join(DATA, rs, by = c("year", "doy"))
 DATA <- left_join(DATA, landsat, by = c("year", "doy"))
 DATA <- left_join(DATA, buoy, by = c("year", "doy"))
 
+# Add a column for NEP (NPP-R)
+DATA <- DATA %>%
+  mutate(EpiNEP_mgC_L = EpiNPP_mgC_L-EpiR_mgC_L)
+
 # Remove unnecessary columns and make long format for plotting
 DATA_long <- DATA %>% 
-  select(doy, year, season, EpiNPP_mgC_L, EpiR_mgC_L, Cyanobacteria_rel_abund_16S, avg_phyco_rfu, avg_chlor_rfu, Red.RedEdge1.r, ST_B10) %>%
-  pivot_longer(EpiNPP_mgC_L:ST_B10, names_to = "variable", values_to = "value")
+  select(doy, year, season, EpiNEP_mgC_L, EpiR_mgC_L, EpiNPP_mgC_L, Cyanobacteria_rel_abund_16S, avg_phyco_rfu, avg_chlor_rfu, Red.RedEdge1.r, ST_B10) %>%
+  pivot_longer(EpiNEP_mgC_L:ST_B10, names_to = "variable", values_to = "value")
     
 ### Time series plot ###
 
-# Preliminary plot set-up
+## Preliminary plot set-up
+
+# Fix order of facets
+DATA_long$variable <- factor(DATA_long$variable, levels = c("EpiNPP_mgC_L", "EpiR_mgC_L", "EpiNEP_mgC_L",
+                                                            "avg_chlor_rfu", "avg_phyco_rfu", "Cyanobacteria_rel_abund_16S", "Red.RedEdge1.r", "ST_B10"))
+
+# Rename columns to more descriptive facet labels
 facet_names <- as_labeller(
-  c(avg_chlor_rfu = "Average surface chlorophyll RFU", 
-    avg_phyco_rfu = "Average surface phycocyanin RFU",
-    Cyanobacteria_rel_abund_16S = "Relative abundance of Cyanobacteria",
-    EpiNPP_mgC_L = "Epilimnion Net Primary Production (NPP) (mgC/L)",
-    EpiR_mgC_L = "Epilimnion Respiration (R) (mgC/L)", 
-    Red.RedEdge1.r = "Red.RedEdge1.r",
-    ST_B10 = "ST_B10"))
+  c(avg_chlor_rfu = "Average surface chlorophyll fluorescence (RFU)", 
+    avg_phyco_rfu = "Average surface phycocyanin fluorescence (RFU)",
+    Cyanobacteria_rel_abund_16S = "Relative abundance of Cyanobacteria in 16S data (%)",
+    EpiNPP_mgC_L = "Modeled epilimnion Net Primary Production (NPP) (mgC/L/d)",
+    EpiR_mgC_L = "Modeled epilimnion Respiration (R) (mgC/L/d)", 
+    EpiNEP_mgC_L = "Modeled epilimnion Net Ecosystem Production (NEP) (mgC/L/d)",
+    Red.RedEdge1.r = "Sentinel-2 Red/Red-Edge 1 ratio",
+    ST_B10 = "Landsat 8 surface temperature (Kelvin)"))
+
+# Fix order of seasons in legend
 DATA_long$season <- factor(DATA_long$season, levels = c("Ice-on", "Spring", "Clearwater", "Early Summer", "Late Summer", "Fall"))
-  
-# Create the plot
+
+## Create the plot
 timeseries <- ggplot(DATA_long) +
-  geom_point(aes(x = doy, y = value, color = season), size = 0.75) +
+  geom_point(aes(x = doy, y = value, color = season), size = 1) +
   facet_wrap(.~variable, ncol = 1, scales = "free_y", labeller = facet_names) +
-  scale_color_viridis_d() +
+  #scale_color_viridis_d() +
+  scale_color_manual(values=c("#999999", "#440154", "#3b528b","#21918c","#5ec962","#fde725")) +
   ylab("Value") +
   xlab("Day of year") +
-  theme_bw(base_size = 17) +
+  theme_bw(base_size = 19) +
   labs(color = "Season") +
-  guides(color = guide_legend(override.aes = list(size = 3.5))) +
+  guides(color = guide_legend(override.aes = list(size = 4))) +
   theme(panel.grid.major = element_blank(),
-        legend.title = element_text(size = 17),
-        legend.text = element_text(size = 17))
+        legend.title = element_text(size = 19),
+        legend.text = element_text(size = 19))
+  
 
-#ggsave("Figures/time_series/time_series_plot_v1.png", timeseries, width = 13, height = 12, units = 'in', device = "png")
+#ggsave("Figures/time_series/time_series_plot_v2.png", timeseries, width = 13, height = 14, units = 'in', device = "png")
 
 
 
