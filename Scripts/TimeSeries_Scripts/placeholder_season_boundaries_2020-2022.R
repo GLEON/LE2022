@@ -24,14 +24,16 @@ seasons_long_doy <- seasons_long %>% mutate(doy = yday(date))
 season_boundaries_avg <- seasons_long_doy %>% 
   group_by(season) %>%
   summarize(avg_boundary = mean(doy))
-# Running into an issue averaging doy for the season boundary "Ice-on", since some of those dates are in January and some are in December. I am just going to eyeball this and say the cutoff is January 1st because that seems pretty close to the average.
+# Running into an issue averaging doy for the season boundary "Ice-on", since some of those dates are in January and some are in December. Could just eyeball this and say the cutoff is January 1st because that seems pretty close to the average.
+
+# We actually have ice-on and ice-off dates in the cleaned_ice_cover.csv dataset, so we will use these actual boundaries for the cutoffs between Ice-on and Spring and between Fall and Ice-on.
 
 # So here are the season boundaries we'll use for 2020-2022:
-# Spring: 86.4 (86)
+# Spring: 86.4 (86) is the averaged date, but instead we'll use the actual date from cleaned_ice_cover.csv
 # Clearwater: 135.5 (136)
 # Early.Summer: 163.7 (164)
 # Late.Summer: 190.0 (190)
 # Fall: 287.4 (287)
-# Ice.on: 1 (1)
+# Ice.on: 1 (1) is the initial estimated date, but instead we'll use the actual date from cleaned_ice_cover.csv
 
-# Used this website: https://asd.gsfc.nasa.gov/Craig.Markwardt/doy2022.html to add these dates for 2020-2022 to the seasons_from_Robins_paper_long .csv file so now they can be integrated into our time series figure script.
+# Used this website: https://asd.gsfc.nasa.gov/Craig.Markwardt/doy2022.html to add these dates for 2020-2022 to the seasons_from_Robins_paper_long.csv file so now they can be integrated into our time series figure script.
