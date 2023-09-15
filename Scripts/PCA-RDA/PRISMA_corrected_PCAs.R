@@ -8,7 +8,7 @@ library(tidyverse)
 
 # Load list of scenes
 
-flist = dir("CO_ignore/CloudFilter/")
+flist = dir("Data/PRISMA/lake/")
 #Initialize storage for variances and components
 vars = tibble()
 lds = tibble()
@@ -23,7 +23,7 @@ for(i in 1:length(flist)){
   print(paste("Processing image", i, "of", length(flist), "from", img_date))
   
 # read data
-  dat = read_csv(paste0("CO_ignore/CloudFilter/", flist[i])) %>% 
+  dat = read_csv(paste0("Data/PRISMA/lake/", flist[i])) %>% 
   dplyr::select(-aot_550, -contains("rhot")) %>% #remove unneeded columns (TOA radiance)
   rename("id" = `...1`) %>% # clean up column names
   sf::st_as_sf(coords = c("x", "y")) #convert to SpatialPointsDataFrame
@@ -78,6 +78,8 @@ for(i in 1:length(flist)){
 
 #plot all PC loadings
 
+lds = lds %>% 
+  filter(img_date!="orrected.z")
 lds %>% 
   mutate(grp = paste(name, img_date),
          #following line is to group the panels
@@ -94,6 +96,8 @@ lds %>%
   labs(x = "Wavelength", y = "Loading", title = "PRISMA: all PCs over 1% variance")+
   theme_bw()
   
+ggsave("Outputs/PCA_outputs/PRISMA/loadings_by_component.png")
+
 lds %>% 
   mutate(grp = paste(name, img_date)) %>% 
   ggplot(aes(x = band, y = value))+
@@ -104,6 +108,8 @@ lds %>%
   scale_color_discrete(name = "PC")+
   labs(x = "Wavelength", y = "Loading", title = "PRISMA: all PCs over 1% variance")+
   theme_bw()
+
+ggsave("Outputs/PCA_outputs/PRISMA/loadings_by_date.png")
 
 #denoise
 lds %>% 
@@ -120,8 +126,10 @@ lds %>%
   labs(x = "Wavelength", y = "Loading", title = "PRISMA: all PCs over 1% variance")+
   theme_bw()
 
-## scratch
-vars = read_csv("CO_ignore/prisma_PCA_variances.csv") %>% 
+ggsave("Outputs/PCA_outputs/PRISMA/loadings_bydate_denoised.png")
+
+## scratch -- transparancy by weight
+vars = read_csv("Outputs/PCA_outputs/PRISMA/prisma_PCA_variances.csv") %>% 
   mutate(component = component %>% str_replace("Comp.", "comp_")) %>% 
   dplyr::select(-value)
 
