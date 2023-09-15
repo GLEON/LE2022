@@ -46,8 +46,9 @@ me_cp%>%
 
 # Make clean daily data ---------------------------------------------------
 
-# Load daily data
-daily_raw = read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-ntl.129.34&entityid=cba9ed12834b8f315d6b10675bb60c5a")
+# Load daily data - need to go to website to update link... 
+# https://lter.limnology.wisc.edu/dataset/north-temperate-lakes-lter-high-frequency-data-meteorological-dissolved-oxygen-chlorophyll-p
+daily_raw = read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-ntl.129.35&entityid=cba9ed12834b8f315d6b10675bb60c5a")
 
 # make sure data values are NA when flagged, preserving as many points as possible
 daily_long = daily_raw %>% 
@@ -118,7 +119,7 @@ rm(daily_buoy, daily_long, daily_raw)
 # Make clean hourly data --------------------------------------------------
 
 # Load hourly data
-hourly_raw = read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-ntl.129.34&entityid=72494d432fe1e977f5326100a733cece")
+hourly_raw = read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-ntl.129.35&entityid=72494d432fe1e977f5326100a733cece")
 
 
 # make sure data values are NA when flagged, preserving as many points as possible
