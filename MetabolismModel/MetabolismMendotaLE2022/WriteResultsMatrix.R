@@ -4,7 +4,7 @@ WriteResultsMatrix = function(OutputFileListName){
   #    CSV file containing the file list of the simulation output
   
   # Date range over which to make the comparison
-  DateRange2Write = c("2010-01-01","2020-12-31")
+  DateRange2Write = c("2010-01-01","2022-12-31")
   # Where to write the output\
   OutputFileName = "./Output/SimResultsMatrix.csv"
   PlotOutput = TRUE # Generates plots of output variables
