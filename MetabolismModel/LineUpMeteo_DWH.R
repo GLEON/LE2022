@@ -1,4 +1,7 @@
-#### Clean up met data 
+#### Clean up met input data 
+#### First add 2017 - 2020 from Robert, then add 2021-2022 from Adrianna
+
+#### 2017-2020 ####
 #Need to line up 2017-2020 NDLAS that Robert sent to the Kludg file that has copied met 
 #then get formated to read into CleanMetFile.R 
 
@@ -6,12 +9,12 @@ library(tidyverse)
 library(lubridate)
 
 #Look at Kludg thats curretnly being used
-kludg <- read_csv("C:/Users/dwh18/OneDrive/Desktop/MetabolismMendotaLE2022/MetabolismMendotaLE2022_5janAdded/bc/NLDAS2_Mendota_1979_2016_forKludg_CLEANED.csv")
+kludg <- read_csv("./MetabolismModel/MetabolismMendotaLE2022/bc/NLDAS2_Mendota_1979_2016_forKludg_CLEANED.csv")
 view(kludg)
 #this has 1995 through 2020 (but post 2016 is copied)
 
 #Look at Roberts NDLAS he shared 
-nldas_rl <- read_csv("C:/Users/dwh18/OneDrive/Desktop/MetabolismMendotaLE2022/Paul_NLDAS2/Mendota_Final/Mendota_2017_2020_box_5_CT.csv")
+nldas_rl <- read_csv("./MetabolismModel/Paul_NLDAS2/Mendota_Final/Mendota_2017_2020_box_5_CT.csv")
 view(nldas_rl)
 
 nldas_for_join <- nldas_rl %>% 
@@ -42,12 +45,25 @@ tail(kludg_for_join)
 head(nldas_for_join)
 joined_mets <- rbind(kludg_for_join, nldas_for_join)
 
-getwd()
-write.csv(joined_mets, "./bc/NLDAS2_Mendota_1995_2020_forKludg_DWH_12jan22.csv", row.names = F)
+# write.csv(joined_mets, "./bc/NLDAS2_Mendota_1995_2020_forKludg_DWH_12jan22.csv", row.names = F)
+# test_newkludg <- read_csv("./bc/NLDAS2_Mendota_1995_2020_forKludg_DWH_12jan22.csv")
 
-test_newkludg <- read_csv("./bc/NLDAS2_Mendota_1995_2020_forKludg_DWH_12jan22.csv")
+#### 2021-2022 ####
+nldas_21_22 <- read_csv("./MetabolismModel/Mendota_2021_2022_box_5_CT.csv") %>% 
+  mutate(datetime = mdy_hm(datetime)) %>% 
+  filter(!is.na(datetime))
+
+head(nldas_21_22)
+
+head(joined_mets)
+tail(joined_mets)
 
 
+joined_mets_FIN <- rbind(joined_mets, nldas_21_22)
+head(joined_mets_FIN)
+tail(joined_mets_FIN)
 
-
-
+write.csv(joined_mets_FIN, "./MetabolismModel/MetabolismMendotaLE2022/bc/NLDAS2_Mendota_1995_2022_forKludg_DWH_14jul23.csv", row.names = F)
+test_newkludg <- read_csv("./MetabolismModel/MetabolismMendotaLE2022/bc/NLDAS2_Mendota_1995_2022_forKludg_DWH_14jul23.csv")
+head(test_newkludg)
+tail(test_newkludg)
