@@ -44,7 +44,8 @@ nReruns = c(1,20) # Can be a vector, If re-running the same inputs but continuin
 # StartDates = c("1995-01-01 UTC","2010-01-01") 
 # EndDates   = c("2015-12-31 UTC","2015-12-31")
 StartDates = c("1995-01-01 UTC","2014-01-01") 
-EndDates   = c("2020-12-31 UTC","2015-12-31")
+#EndDates   = c("2020-12-31 UTC","2015-12-31")
+ EndDates   = c("2022-12-31 UTC","2015-12-31")
 
 
 InitTemps  = rep(3,3) # Can be a vector, Initial lake temperature on, e.g., Jan 1
@@ -55,12 +56,16 @@ HypsoFiles = rep('bc/LakeEnsemblR_bathymetry_standard.csv',3)
 # MeteoFiles = c('bc/NLDAS2_Mendota_1979_2016_cell_5_GLMReady_cut_timezonecorr_CLEANED.csv',
 #                'bc/NLDAS2_Mendota_2010_2016_cell_5_GLMReady_cut_timezonecorr_CLEANED.csv',
 #                'bc/NLDAS2_Mendota_2010_2016_cell_5_GLMReady_cut_timezonecorr_CLEANED.csv')
-#MeteoFiles = rep('bc/NLDAS2_Mendota_1979_2016_forKludg_CLEANED.csv',3) #before 12 Jan 2022
-MeteoFiles = rep('bc/NLDAS2_Mendota_1995_2020_forKludg_DWH_12jan22.csv',3) 
+#MeteoFiles = rep('bc/NLDAS2_Mendota_1979_2016_forKludg_CLEANED.csv',3) #before 12 Jan 2023
+#MeteoFiles = rep('bc/NLDAS2_Mendota_1995_2020_forKludg_DWH_12jan22.csv',3) #before 14 Jul 2023
+MeteoFiles = rep('bc/NLDAS2_Mendota_1995_2022_forKludg_DWH_14jul23.csv',3) 
+
 
 # ___________________________________________________________________________________________
 # HydroFiles = rep('DriverData/hydro_inputs.csv',3)
-HydroFiles = rep('DriverData/hydro_inputs_1979_2020_CopyMethod.csv',3)
+#HydroFiles = rep('DriverData/hydro_inputs_1979_2020_CopyMethod.csv',3) #before 14 Jul 2023
+HydroFiles = rep('DriverData/hydro_inputs_1979_2022_RegressMethod.csv',3)
+
 SecchiFiles =rep('bc/light.csv',3) # placeholder needed for Robert's function
 
 # Setup for some of the output

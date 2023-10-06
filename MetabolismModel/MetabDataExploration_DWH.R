@@ -6,6 +6,52 @@ library(ggpmisc)
 
 #manually set working directory to metab folder 
 
+#### Testing 5 Oct 2023 model updates 
+metab_Jan <- read_csv("C:/Users/dwh18/OneDrive/Desktop/R_Projects/LE2022_DWHfork/MetabolismModel/MetabolismMendotaLE2022/Output/SimResultsMatrix_MetabData_run12jan23.csv")
+metab_Oct <- read_csv("C:/Users/dwh18/OneDrive/Desktop/R_Projects/LE2022_DWHfork/MetabolismModel/MetabolismMendotaLE2022/Output/SimResultsMatrix_MetabData_run05oct23.csv")
+
+metab_Jan_2 <- metab_Jan %>% 
+  pivot_longer(-1, names_to = "name", values_to = "value_Jan") 
+
+metab_Jan_2 %>% 
+  ggplot(aes(x = SimDate, y = value_Jan))+
+  geom_line()+
+  facet_wrap(~name, scales = "free_y")+
+  ggtitle("Jan Sim run 2010-2020")+
+  theme_bw()
+
+metab_Oct_2 <- metab_Oct %>% 
+  pivot_longer(-1, names_to = "name", values_to = "value_Oct")
+
+metab_Oct_2 %>% 
+  ggplot(aes(x = SimDate, y = value_Oct))+
+  geom_line()+
+  facet_wrap(~name, scales = "free_y")+
+  ggtitle("Oct Sim run 2010-2022")+
+  theme_bw()
+
+
+joined <- right_join(metab_Jan_2, metab_Oct_2, by = c("SimDate", "name"))
+
+joined$RMSE <- joined$value_Jan - joined$value_Oct
+
+joined %>% 
+  ggplot(aes(x=SimDate, y = RMSE))+
+  geom_line()+
+  facet_wrap(~name, scales = "free_y")
+
+joined %>% 
+  filter(name %in% c("EpiR_mgC_L", "EpiNPP_mgC_L", "EpiDOC_mgC_L", "EpiDO_mgO2_L")) %>%
+  select(-RMSE) %>% 
+  pivot_longer(-c(1:2), names_to = "Sim", values_to = "Values") %>% 
+  ggplot(aes(x=SimDate, y = Values, color = Sim))+
+  geom_line()+
+  facet_wrap(~name, scales = "free_y")
+
+
+#### OLD before July 2023
+
+
 ##read in data 
 data <- read_csv("C:/Users/dwh18/OneDrive/Desktop/MetabolismMendotaLE2022/MetabolismMendotaLE2022_5janAdded/Output/SimResultsMatrix.csv")
 seasons <- read_csv("C:/Users/dwh18/OneDrive/Desktop/MetabolismMendotaLE2022/seasons_from_Robins_paper.csv")
