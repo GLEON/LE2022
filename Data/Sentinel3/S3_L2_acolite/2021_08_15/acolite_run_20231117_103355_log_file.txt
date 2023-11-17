@@ -1,0 +1,237 @@
+2023-11-17 10:33:55: Running ACOLITE processing - Generic GitHub Clone c2023-11-15T12:59:53
+2023-11-17 10:33:55: Python - win32 - 3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:29:11) [MSC v.1935 64 bit (AMD64)]
+2023-11-17 10:33:55: Platform - Windows 10 - AMD64 - 10.0.19045
+2023-11-17 10:33:55: Run ID - 20231117_103355
+2023-11-17 10:33:55: Identified c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L1/S3A_OL_1_EFR____20210815T160446_20210815T160746_20210816T200851_0180_075_154_2160_LN1_O_NT_002.SEN3 as Sentinel-3 type
+2023-11-17 10:33:55: Starting conversion of 1 scenes
+2023-11-17 10:33:55: Applying limit buffer 0.1
+2023-11-17 10:33:55: Old limit: [42.975101260529925, -89.5221791989459, 43.20072851621282, -89.26008675058664]
+2023-11-17 10:33:55: New limit: (42.875101260529924, -89.6221791989459, 43.30072851621282, -89.16008675058664)
+2023-11-17 10:33:56: Oa01_radiance
+2023-11-17 10:33:56: (175, 256)
+2023-11-17 10:33:56: Applying gain 0.97546 for Oa01_radiance
+2023-11-17 10:33:56: Oa02_radiance
+2023-11-17 10:33:56: (175, 256)
+2023-11-17 10:33:56: Applying gain 0.97406 for Oa02_radiance
+2023-11-17 10:33:56: Oa03_radiance
+2023-11-17 10:33:56: (175, 256)
+2023-11-17 10:33:56: Applying gain 0.97492 for Oa03_radiance
+2023-11-17 10:33:56: Oa04_radiance
+2023-11-17 10:33:56: (175, 256)
+2023-11-17 10:33:56: Applying gain 0.96890 for Oa04_radiance
+2023-11-17 10:33:56: Oa05_radiance
+2023-11-17 10:33:56: (175, 256)
+2023-11-17 10:33:56: Applying gain 0.97184 for Oa05_radiance
+2023-11-17 10:33:56: Oa06_radiance
+2023-11-17 10:33:56: (175, 256)
+2023-11-17 10:33:56: Applying gain 0.97571 for Oa06_radiance
+2023-11-17 10:33:56: Oa07_radiance
+2023-11-17 10:33:56: (175, 256)
+2023-11-17 10:33:56: Applying gain 0.98001 for Oa07_radiance
+2023-11-17 10:33:57: Oa08_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 0.97834 for Oa08_radiance
+2023-11-17 10:33:57: Oa09_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 0.97860 for Oa09_radiance
+2023-11-17 10:33:57: Oa10_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 0.97908 for Oa10_radiance
+2023-11-17 10:33:57: Oa11_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 0.98013 for Oa11_radiance
+2023-11-17 10:33:57: Oa12_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 0.98552 for Oa12_radiance
+2023-11-17 10:33:57: Oa13_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 1.00000 for Oa13_radiance
+2023-11-17 10:33:57: Oa14_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 1.00000 for Oa14_radiance
+2023-11-17 10:33:57: Oa15_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 1.00000 for Oa15_radiance
+2023-11-17 10:33:57: Oa16_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 0.98772 for Oa16_radiance
+2023-11-17 10:33:57: Oa17_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 0.98600 for Oa17_radiance
+2023-11-17 10:33:57: Oa18_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 0.98657 for Oa18_radiance
+2023-11-17 10:33:57: Oa19_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 1.00000 for Oa19_radiance
+2023-11-17 10:33:57: Oa20_radiance
+2023-11-17 10:33:57: (175, 256)
+2023-11-17 10:33:57: Applying gain 1.00000 for Oa20_radiance
+2023-11-17 10:33:58: Oa21_radiance
+2023-11-17 10:33:58: (175, 256)
+2023-11-17 10:33:58: Applying gain 0.91316 for Oa21_radiance
+2023-11-17 10:33:59: Getting ancillary data for 2021-08-15T16:04:45.807205+00:00 -89.341E 43.073N
+2023-11-17 10:33:59: Downloading file GMAO_MERRA2.20210815T160000.MET.nc
+2023-11-17 10:33:59: EARTHDATA user name and password required for download of https://oceandata.sci.gsfc.nasa.gov/ob/getfile/GMAO_MERRA2.20210815T160000.MET.nc
+2023-11-17 10:33:59: Finished downloading file GMAO_MERRA2.20210815T160000.MET.nc
+2023-11-17 10:33:59: Downloading file GMAO_MERRA2.20210815T170000.MET.nc
+2023-11-17 10:33:59: EARTHDATA user name and password required for download of https://oceandata.sci.gsfc.nasa.gov/ob/getfile/GMAO_MERRA2.20210815T170000.MET.nc
+2023-11-17 10:33:59: Finished downloading file GMAO_MERRA2.20210815T170000.MET.nc
+2023-11-17 10:33:59: No ozone file found for 2021-08-15 16:04:45.807205+00:00
+2023-11-17 10:33:59: No NCEP files found for 2021-08-15 16:04:45.807205+00:00
+2023-11-17 10:33:59: current uoz: 0.30 uwv: 1.50 pressure: 1013.25
+2023-11-17 10:34:00: Running smile correction
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Gas correction before smile correction
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa01 400.0 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa01/Oa02
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa02 412.5 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa01/Oa03
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa03 442.5 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa02/Oa04
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa04 490.0 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa03/Oa05
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa05 510.0 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa04/Oa06
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa06 560.0 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa05/Oa07
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa07 620.0 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa06/Oa08
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa08 665.0 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa07/Oa09
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa09 673.75 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa08/Oa09
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa10 681.25 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa11 708.75 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa11/Oa12
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa12 753.75 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa11/Oa12
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa13 761.25 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa14 764.375 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa15 767.5 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa16 778.75 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa16/Oa17
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa17 865.0 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa16/Oa18
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa18 885.0 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa17/Oa18
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa19 900.0 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa20 940.0 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction for band Oa21 1020.0 nm
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Smile correction - bounding bands Oa18/Oa21
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Gas correction restored after smile correction
+2023-11-17 10:34:00: Writing geolocation
+2023-11-17 10:34:00: Writing geometry
+2023-11-17 10:34:00: Writing TOA reflectance
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 400 nm
+2023-11-17 10:34:00: Converting bands: Wrote rhot_400 ((175, 256))
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 412 nm
+2023-11-17 10:34:00: Converting bands: Wrote rhot_412 ((175, 256))
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 443 nm
+2023-11-17 10:34:00: Converting bands: Wrote rhot_443 ((175, 256))
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 490 nm
+2023-11-17 10:34:00: Converting bands: Wrote rhot_490 ((175, 256))
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 510 nm
+2023-11-17 10:34:00: Converting bands: Wrote rhot_510 ((175, 256))
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 560 nm
+2023-11-17 10:34:00: Converting bands: Wrote rhot_560 ((175, 256))
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 620 nm
+2023-11-17 10:34:00: Converting bands: Wrote rhot_620 ((175, 256))
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 665 nm
+2023-11-17 10:34:00: Converting bands: Wrote rhot_665 ((175, 256))
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 674 nm
+2023-11-17 10:34:00: Converting bands: Wrote rhot_674 ((175, 256))
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 682 nm
+2023-11-17 10:34:00: Converting bands: Wrote rhot_682 ((175, 256))
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 709 nm
+2023-11-17 10:34:00: Converting bands: Wrote rhot_709 ((175, 256))
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 754 nm
+2023-11-17 10:34:00: Converting bands: Wrote rhot_754 ((175, 256))
+2023-11-17 10:34:00: 2023-11-17T10:34:00 - Reading TOA data for 762 nm
+2023-11-17 10:34:01: Converting bands: Wrote rhot_762 ((175, 256))
+2023-11-17 10:34:01: 2023-11-17T10:34:01 - Reading TOA data for 765 nm
+2023-11-17 10:34:01: Converting bands: Wrote rhot_765 ((175, 256))
+2023-11-17 10:34:01: 2023-11-17T10:34:01 - Reading TOA data for 768 nm
+2023-11-17 10:34:01: Converting bands: Wrote rhot_768 ((175, 256))
+2023-11-17 10:34:01: 2023-11-17T10:34:01 - Reading TOA data for 779 nm
+2023-11-17 10:34:01: Converting bands: Wrote rhot_779 ((175, 256))
+2023-11-17 10:34:01: 2023-11-17T10:34:01 - Reading TOA data for 865 nm
+2023-11-17 10:34:01: Converting bands: Wrote rhot_865 ((175, 256))
+2023-11-17 10:34:01: 2023-11-17T10:34:01 - Reading TOA data for 884 nm
+2023-11-17 10:34:01: Converting bands: Wrote rhot_884 ((175, 256))
+2023-11-17 10:34:01: 2023-11-17T10:34:01 - Reading TOA data for 899 nm
+2023-11-17 10:34:01: Converting bands: Wrote rhot_899 ((175, 256))
+2023-11-17 10:34:01: 2023-11-17T10:34:01 - Reading TOA data for 939 nm
+2023-11-17 10:34:01: Converting bands: Wrote rhot_939 ((175, 256))
+2023-11-17 10:34:01: 2023-11-17T10:34:01 - Reading TOA data for 1016 nm
+2023-11-17 10:34:01: Converting bands: Wrote rhot_1016 ((175, 256))
+2023-11-17 10:34:01: Conversion took 5.6 seconds
+2023-11-17 10:34:01: Created c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L2_acolite/S3A_OLCI_2021_08_15_16_04_45_L1R.nc
+2023-11-17 10:34:01: Using default grid size: 300.0x-300.0metres
+2023-11-17 10:34:01: 16
+2023-11-17 10:34:01: 32616
+2023-11-17 10:34:01: Setting up target projection.
+2023-11-17 10:34:01: (294000.0, 316800.0)
+2023-11-17 10:34:01: (4785900.0, 4761300.0)
+2023-11-17 10:34:01: 76
+2023-11-17 10:34:01: 82
+2023-11-17 10:34:01: Reading lon 175x256
+2023-11-17 10:34:01: Reading lat 175x256
+2023-11-17 10:34:01: Reading vaa 175x256
+2023-11-17 10:34:01: Reading vza 175x256
+2023-11-17 10:34:01: Reading saa 175x256
+2023-11-17 10:34:01: Reading sza 175x256
+2023-11-17 10:34:01: Reading pressure 175x256
+2023-11-17 10:34:01: Reading raa 175x256
+2023-11-17 10:34:01: Reading rhot_400 175x256
+2023-11-17 10:34:01: Reading rhot_412 175x256
+2023-11-17 10:34:01: Reading rhot_443 175x256
+2023-11-17 10:34:01: Reading rhot_490 175x256
+2023-11-17 10:34:01: Reading rhot_510 175x256
+2023-11-17 10:34:01: Reading rhot_560 175x256
+2023-11-17 10:34:01: Reading rhot_620 175x256
+2023-11-17 10:34:01: Reading rhot_665 175x256
+2023-11-17 10:34:01: Reading rhot_674 175x256
+2023-11-17 10:34:01: Reading rhot_682 175x256
+2023-11-17 10:34:01: Reading rhot_709 175x256
+2023-11-17 10:34:01: Reading rhot_754 175x256
+2023-11-17 10:34:01: Reading rhot_762 175x256
+2023-11-17 10:34:01: Reading rhot_765 175x256
+2023-11-17 10:34:01: Reading rhot_768 175x256
+2023-11-17 10:34:01: Reading rhot_779 175x256
+2023-11-17 10:34:01: Reading rhot_865 175x256
+2023-11-17 10:34:01: Reading rhot_884 175x256
+2023-11-17 10:34:01: Reading rhot_899 175x256
+2023-11-17 10:34:01: Reading rhot_939 175x256
+2023-11-17 10:34:02: Reading rhot_1016 175x256
+2023-11-17 10:34:02: Projecting datasets 175x256x29 to EPSG:32616 76x82x29
+2023-11-17 10:34:02: Reprojection of 29 datasets took 0.1 seconds
+2023-11-17 10:34:02: Writing lon 82x76
+2023-11-17 10:34:02: Writing lat 82x76
+2023-11-17 10:34:02: Writing vaa 82x76
+2023-11-17 10:34:02: Writing vza 82x76
+2023-11-17 10:34:02: Writing saa 82x76
+2023-11-17 10:34:02: Writing sza 82x76
+2023-11-17 10:34:02: Writing pressure 82x76
+2023-11-17 10:34:02: Writing raa 82x76
+2023-11-17 10:34:02: Writing rhot_400 82x76
+2023-11-17 10:34:02: Writing rhot_412 82x76
+2023-11-17 10:34:02: Writing rhot_443 82x76
+2023-11-17 10:34:02: Writing rhot_490 82x76
+2023-11-17 10:34:02: Writing rhot_510 82x76
+2023-11-17 10:34:02: Writing rhot_560 82x76
+2023-11-17 10:34:02: Writing rhot_620 82x76
+2023-11-17 10:34:02: Writing rhot_665 82x76
+2023-11-17 10:34:02: Writing rhot_674 82x76
+2023-11-17 10:34:02: Writing rhot_682 82x76
+2023-11-17 10:34:02: Writing rhot_709 82x76
+2023-11-17 10:34:02: Writing rhot_754 82x76
+2023-11-17 10:34:02: Writing rhot_762 82x76
+2023-11-17 10:34:02: Writing rhot_765 82x76
+2023-11-17 10:34:02: Writing rhot_768 82x76
+2023-11-17 10:34:02: Writing rhot_779 82x76
+2023-11-17 10:34:02: Writing rhot_865 82x76
+2023-11-17 10:34:02: Writing rhot_884 82x76
+2023-11-17 10:34:02: Writing rhot_899 82x76
+2023-11-17 10:34:02: Writing rhot_939 82x76
+2023-11-17 10:34:02: Writing rhot_1016 82x76
+2023-11-17 10:34:03: Wrote c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L2_acolite/S3A_OLCI_2021_08_15_16_04_45_L1R_projected.nc
