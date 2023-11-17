@@ -1,0 +1,6 @@
+2023-11-17 12:50:41: Running ACOLITE processing - Generic GitHub Clone c2023-11-15T12:59:53
+2023-11-17 12:50:41: Python - win32 - 3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:29:11) [MSC v.1935 64 bit (AMD64)]
+2023-11-17 12:50:41: Platform - Windows 10 - AMD64 - 10.0.19045
+2023-11-17 12:50:41: Run ID - 20231117_125041
+2023-11-17 12:50:41: Identified c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L1/S3A_OL_1_EFR____20221010T154947_20221010T155247_20221010T174755_0180_090_382_2160_PS1_O_NR_003.SEN3 as Sentinel-3 type
+2023-11-17 12:50:41: Starting conversion of 1 scenes

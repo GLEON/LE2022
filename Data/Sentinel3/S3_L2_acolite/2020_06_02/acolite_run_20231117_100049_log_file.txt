@@ -1,0 +1,519 @@
+2023-11-17 10:00:49: Running ACOLITE processing - Generic GitHub Clone c2023-11-15T12:59:53
+2023-11-17 10:00:49: Python - win32 - 3.11.6 | packaged by conda-forge | (main, Oct  3 2023, 10:29:11) [MSC v.1935 64 bit (AMD64)]
+2023-11-17 10:00:49: Platform - Windows 10 - AMD64 - 10.0.19045
+2023-11-17 10:00:49: Run ID - 20231117_100049
+2023-11-17 10:00:49: Identified c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L1/S3A_OL_1_EFR____20200602T154602_20200602T154902_20200603T191319_0179_059_054_2160_LN1_O_NT_002.SEN3 as Sentinel-3 type
+2023-11-17 10:00:49: Starting conversion of 1 scenes
+2023-11-17 10:00:49: Applying limit buffer 0.1
+2023-11-17 10:00:49: Old limit: [42.975101260529925, -89.5221791989459, 43.20072851621282, -89.26008675058664]
+2023-11-17 10:00:49: New limit: (42.875101260529924, -89.6221791989459, 43.30072851621282, -89.16008675058664)
+2023-11-17 10:00:50: Oa01_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.97546 for Oa01_radiance
+2023-11-17 10:00:50: Oa02_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.97406 for Oa02_radiance
+2023-11-17 10:00:50: Oa03_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.97492 for Oa03_radiance
+2023-11-17 10:00:50: Oa04_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.96890 for Oa04_radiance
+2023-11-17 10:00:50: Oa05_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.97184 for Oa05_radiance
+2023-11-17 10:00:50: Oa06_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.97571 for Oa06_radiance
+2023-11-17 10:00:50: Oa07_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.98001 for Oa07_radiance
+2023-11-17 10:00:50: Oa08_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.97834 for Oa08_radiance
+2023-11-17 10:00:50: Oa09_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.97860 for Oa09_radiance
+2023-11-17 10:00:50: Oa10_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.97908 for Oa10_radiance
+2023-11-17 10:00:50: Oa11_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.98013 for Oa11_radiance
+2023-11-17 10:00:50: Oa12_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.98552 for Oa12_radiance
+2023-11-17 10:00:50: Oa13_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 1.00000 for Oa13_radiance
+2023-11-17 10:00:50: Oa14_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 1.00000 for Oa14_radiance
+2023-11-17 10:00:50: Oa15_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 1.00000 for Oa15_radiance
+2023-11-17 10:00:50: Oa16_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.98772 for Oa16_radiance
+2023-11-17 10:00:50: Oa17_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.98600 for Oa17_radiance
+2023-11-17 10:00:50: Oa18_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 0.98657 for Oa18_radiance
+2023-11-17 10:00:50: Oa19_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 1.00000 for Oa19_radiance
+2023-11-17 10:00:50: Oa20_radiance
+2023-11-17 10:00:50: (165, 256)
+2023-11-17 10:00:50: Applying gain 1.00000 for Oa20_radiance
+2023-11-17 10:00:51: Oa21_radiance
+2023-11-17 10:00:51: (165, 256)
+2023-11-17 10:00:51: Applying gain 0.91316 for Oa21_radiance
+2023-11-17 10:00:52: Getting ancillary data for 2020-06-02T15:46:02.339315+00:00 -89.392E 43.088N
+2023-11-17 10:00:52: Downloading file GMAO_MERRA2.20200602T150000.MET.nc
+2023-11-17 10:00:52: EARTHDATA user name and password required for download of https://oceandata.sci.gsfc.nasa.gov/ob/getfile/GMAO_MERRA2.20200602T150000.MET.nc
+2023-11-17 10:00:52: Finished downloading file GMAO_MERRA2.20200602T150000.MET.nc
+2023-11-17 10:00:52: Downloading file GMAO_MERRA2.20200602T160000.MET.nc
+2023-11-17 10:00:52: EARTHDATA user name and password required for download of https://oceandata.sci.gsfc.nasa.gov/ob/getfile/GMAO_MERRA2.20200602T160000.MET.nc
+2023-11-17 10:00:52: Finished downloading file GMAO_MERRA2.20200602T160000.MET.nc
+2023-11-17 10:00:52: No ozone file found for 2020-06-02 15:46:02.339315+00:00
+2023-11-17 10:00:52: No NCEP files found for 2020-06-02 15:46:02.339315+00:00
+2023-11-17 10:00:52: current uoz: 0.30 uwv: 1.50 pressure: 1013.25
+2023-11-17 10:00:52: Running smile correction
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Gas correction before smile correction
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction for band Oa01 400.0 nm
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction - bounding bands Oa01/Oa02
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction for band Oa02 412.5 nm
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction - bounding bands Oa01/Oa03
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction for band Oa03 442.5 nm
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction - bounding bands Oa02/Oa04
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction for band Oa04 490.0 nm
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction - bounding bands Oa03/Oa05
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction for band Oa05 510.0 nm
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction - bounding bands Oa04/Oa06
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction for band Oa06 560.0 nm
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction - bounding bands Oa05/Oa07
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction for band Oa07 620.0 nm
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction - bounding bands Oa06/Oa08
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction for band Oa08 665.0 nm
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction - bounding bands Oa07/Oa09
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction for band Oa09 673.75 nm
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction - bounding bands Oa08/Oa09
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction for band Oa10 681.25 nm
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction for band Oa11 708.75 nm
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction - bounding bands Oa11/Oa12
+2023-11-17 10:00:52: 2023-11-17T10:00:52 - Smile correction for band Oa12 753.75 nm
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction - bounding bands Oa11/Oa12
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction for band Oa13 761.25 nm
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction for band Oa14 764.375 nm
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction for band Oa15 767.5 nm
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction for band Oa16 778.75 nm
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction - bounding bands Oa16/Oa17
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction for band Oa17 865.0 nm
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction - bounding bands Oa16/Oa18
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction for band Oa18 885.0 nm
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction - bounding bands Oa17/Oa18
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction for band Oa19 900.0 nm
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction for band Oa20 940.0 nm
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction for band Oa21 1020.0 nm
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Smile correction - bounding bands Oa18/Oa21
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Gas correction restored after smile correction
+2023-11-17 10:00:53: Writing geolocation
+2023-11-17 10:00:53: Writing geometry
+2023-11-17 10:00:53: Writing TOA reflectance
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 400 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_400 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 412 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_412 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 443 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_443 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 490 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_490 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 510 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_510 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 560 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_560 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 620 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_620 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 665 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_665 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 674 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_674 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 682 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_682 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 709 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_709 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 754 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_754 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 762 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_762 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 765 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_765 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 768 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_768 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 779 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_779 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 865 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_865 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 884 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_884 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 899 nm
+2023-11-17 10:00:53: Converting bands: Wrote rhot_899 ((165, 256))
+2023-11-17 10:00:53: 2023-11-17T10:00:53 - Reading TOA data for 939 nm
+2023-11-17 10:00:54: Converting bands: Wrote rhot_939 ((165, 256))
+2023-11-17 10:00:54: 2023-11-17T10:00:54 - Reading TOA data for 1016 nm
+2023-11-17 10:00:54: Converting bands: Wrote rhot_1016 ((165, 256))
+2023-11-17 10:00:54: Conversion took 4.8 seconds
+2023-11-17 10:00:54: Created c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L2_acolite/S3A_OLCI_2020_06_02_15_46_02_L1R.nc
+2023-11-17 10:00:54: Using default grid size: 300.0x-300.0metres
+2023-11-17 10:00:54: 16
+2023-11-17 10:00:54: 32616
+2023-11-17 10:00:54: Setting up target projection.
+2023-11-17 10:00:54: (294000.0, 316800.0)
+2023-11-17 10:00:54: (4785900.0, 4761300.0)
+2023-11-17 10:00:54: 76
+2023-11-17 10:00:54: 82
+2023-11-17 10:00:54: Reading lon 165x256
+2023-11-17 10:00:54: Reading lat 165x256
+2023-11-17 10:00:54: Reading vaa 165x256
+2023-11-17 10:00:54: Reading vza 165x256
+2023-11-17 10:00:54: Reading saa 165x256
+2023-11-17 10:00:54: Reading sza 165x256
+2023-11-17 10:00:54: Reading pressure 165x256
+2023-11-17 10:00:54: Reading raa 165x256
+2023-11-17 10:00:54: Reading rhot_400 165x256
+2023-11-17 10:00:54: Reading rhot_412 165x256
+2023-11-17 10:00:54: Reading rhot_443 165x256
+2023-11-17 10:00:54: Reading rhot_490 165x256
+2023-11-17 10:00:54: Reading rhot_510 165x256
+2023-11-17 10:00:54: Reading rhot_560 165x256
+2023-11-17 10:00:54: Reading rhot_620 165x256
+2023-11-17 10:00:54: Reading rhot_665 165x256
+2023-11-17 10:00:54: Reading rhot_674 165x256
+2023-11-17 10:00:54: Reading rhot_682 165x256
+2023-11-17 10:00:54: Reading rhot_709 165x256
+2023-11-17 10:00:54: Reading rhot_754 165x256
+2023-11-17 10:00:54: Reading rhot_762 165x256
+2023-11-17 10:00:54: Reading rhot_765 165x256
+2023-11-17 10:00:54: Reading rhot_768 165x256
+2023-11-17 10:00:54: Reading rhot_779 165x256
+2023-11-17 10:00:54: Reading rhot_865 165x256
+2023-11-17 10:00:54: Reading rhot_884 165x256
+2023-11-17 10:00:54: Reading rhot_899 165x256
+2023-11-17 10:00:54: Reading rhot_939 165x256
+2023-11-17 10:00:54: Reading rhot_1016 165x256
+2023-11-17 10:00:54: Projecting datasets 165x256x29 to EPSG:32616 76x82x29
+2023-11-17 10:00:55: Reprojection of 29 datasets took 0.1 seconds
+2023-11-17 10:00:55: Writing lon 82x76
+2023-11-17 10:00:55: Writing lat 82x76
+2023-11-17 10:00:55: Writing vaa 82x76
+2023-11-17 10:00:55: Writing vza 82x76
+2023-11-17 10:00:55: Writing saa 82x76
+2023-11-17 10:00:55: Writing sza 82x76
+2023-11-17 10:00:55: Writing pressure 82x76
+2023-11-17 10:00:55: Writing raa 82x76
+2023-11-17 10:00:55: Writing rhot_400 82x76
+2023-11-17 10:00:55: Writing rhot_412 82x76
+2023-11-17 10:00:55: Writing rhot_443 82x76
+2023-11-17 10:00:55: Writing rhot_490 82x76
+2023-11-17 10:00:55: Writing rhot_510 82x76
+2023-11-17 10:00:55: Writing rhot_560 82x76
+2023-11-17 10:00:55: Writing rhot_620 82x76
+2023-11-17 10:00:55: Writing rhot_665 82x76
+2023-11-17 10:00:55: Writing rhot_674 82x76
+2023-11-17 10:00:55: Writing rhot_682 82x76
+2023-11-17 10:00:55: Writing rhot_709 82x76
+2023-11-17 10:00:55: Writing rhot_754 82x76
+2023-11-17 10:00:55: Writing rhot_762 82x76
+2023-11-17 10:00:55: Writing rhot_765 82x76
+2023-11-17 10:00:55: Writing rhot_768 82x76
+2023-11-17 10:00:55: Writing rhot_779 82x76
+2023-11-17 10:00:55: Writing rhot_865 82x76
+2023-11-17 10:00:55: Writing rhot_884 82x76
+2023-11-17 10:00:55: Writing rhot_899 82x76
+2023-11-17 10:00:55: Writing rhot_939 82x76
+2023-11-17 10:00:56: Writing rhot_1016 82x76
+2023-11-17 10:00:56: Wrote c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L2_acolite/S3A_OLCI_2020_06_02_15_46_02_L1R_projected.nc
+2023-11-17 10:00:56: Wrote c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L2_acolite/S3A_OLCI_2020_06_02_15_46_02_L1R_projected_rgb_rhot.png
+2023-11-17 10:00:56: Running acolite for c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L2_acolite/S3A_OLCI_2020_06_02_15_46_02_L1R_projected.nc
+2023-11-17 10:00:56: Getting ancillary data for 2020-06-02T15:46:02.339315+00:00 -89.393E 43.091N
+2023-11-17 10:00:56: Downloading file GMAO_MERRA2.20200602T150000.MET.nc
+2023-11-17 10:00:56: EARTHDATA user name and password required for download of https://oceandata.sci.gsfc.nasa.gov/ob/getfile/GMAO_MERRA2.20200602T150000.MET.nc
+2023-11-17 10:00:56: Finished downloading file GMAO_MERRA2.20200602T150000.MET.nc
+2023-11-17 10:00:56: Downloading file GMAO_MERRA2.20200602T160000.MET.nc
+2023-11-17 10:00:56: EARTHDATA user name and password required for download of https://oceandata.sci.gsfc.nasa.gov/ob/getfile/GMAO_MERRA2.20200602T160000.MET.nc
+2023-11-17 10:00:56: Finished downloading file GMAO_MERRA2.20200602T160000.MET.nc
+2023-11-17 10:00:56: No ozone file found for 2020-06-02T15:46:02.339315+00:00
+2023-11-17 10:00:56: No NCEP files found for 2020-06-02T15:46:02.339315+00:00
+2023-11-17 10:00:56: default uoz: 0.30 uwv: 1.50 pressure: 1013.25
+2023-11-17 10:00:56: current uoz: 0.30 uwv: 1.50 pressure: 1013.25
+2023-11-17 10:00:57: Using DSF atmospheric correction
+2023-11-17 10:00:57: Writing lon
+2023-11-17 10:00:57: Wrote lon
+2023-11-17 10:00:57: Writing lat
+2023-11-17 10:00:57: Wrote lat
+2023-11-17 10:00:57: Writing sza
+2023-11-17 10:00:57: Wrote sza
+2023-11-17 10:00:57: Writing vza
+2023-11-17 10:00:57: Wrote vza
+2023-11-17 10:00:57: Writing saa
+2023-11-17 10:00:57: Wrote saa
+2023-11-17 10:00:57: Writing vaa
+2023-11-17 10:00:57: Wrote vaa
+2023-11-17 10:00:57: Writing raa
+2023-11-17 10:00:57: Wrote raa
+2023-11-17 10:00:57: Loading LUTs ['ACOLITE-LUT-202110-MOD1', 'ACOLITE-LUT-202110-MOD2']
+2023-11-17 10:00:57: Getting remote LUT https://raw.githubusercontent.com/acolite/acolite_luts/main/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD1-0500mb_S3A_OLCI.nc
+2023-11-17 10:01:11: Testing LUT C:\Users\ssharp\Documents\Git\acolite\data\LUT/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD1-0500mb_S3A_OLCI.nc
+2023-11-17 10:01:12: Getting remote LUT https://raw.githubusercontent.com/acolite/acolite_luts/main/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD1-0750mb_S3A_OLCI.nc
+2023-11-17 10:01:21: Testing LUT C:\Users\ssharp\Documents\Git\acolite\data\LUT/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD1-0750mb_S3A_OLCI.nc
+2023-11-17 10:01:22: Getting remote LUT https://raw.githubusercontent.com/acolite/acolite_luts/main/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD1-1013mb_S3A_OLCI.nc
+2023-11-17 10:01:32: Testing LUT C:\Users\ssharp\Documents\Git\acolite\data\LUT/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD1-1013mb_S3A_OLCI.nc
+2023-11-17 10:01:32: Getting remote LUT https://raw.githubusercontent.com/acolite/acolite_luts/main/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD1-1100mb_S3A_OLCI.nc
+2023-11-17 10:01:42: Testing LUT C:\Users\ssharp\Documents\Git\acolite\data\LUT/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD1-1100mb_S3A_OLCI.nc
+2023-11-17 10:01:49: Getting remote LUT https://raw.githubusercontent.com/acolite/acolite_luts/main/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD2-0500mb_S3A_OLCI.nc
+2023-11-17 10:01:59: Testing LUT C:\Users\ssharp\Documents\Git\acolite\data\LUT/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD2-0500mb_S3A_OLCI.nc
+2023-11-17 10:01:59: Getting remote LUT https://raw.githubusercontent.com/acolite/acolite_luts/main/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD2-0750mb_S3A_OLCI.nc
+2023-11-17 10:02:09: Testing LUT C:\Users\ssharp\Documents\Git\acolite\data\LUT/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD2-0750mb_S3A_OLCI.nc
+2023-11-17 10:02:09: Getting remote LUT https://raw.githubusercontent.com/acolite/acolite_luts/main/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD2-1013mb_S3A_OLCI.nc
+2023-11-17 10:02:25: Testing LUT C:\Users\ssharp\Documents\Git\acolite\data\LUT/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD2-1013mb_S3A_OLCI.nc
+2023-11-17 10:02:26: Getting remote LUT https://raw.githubusercontent.com/acolite/acolite_luts/main/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD2-1100mb_S3A_OLCI.nc
+2023-11-17 10:02:37: Testing LUT C:\Users\ssharp\Documents\Git\acolite\data\LUT/ACOLITE-LUT-202110/S3A_OLCI/ACOLITE-LUT-202110-MOD2-1100mb_S3A_OLCI.nc
+2023-11-17 10:02:45: Loading LUTs took 107.9 s
+2023-11-17 10:02:45: Oa03
+2023-11-17 10:02:45: rhot_443
+2023-11-17 10:02:45: Oa03
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.178
+2023-11-17 10:02:45: S3A_OLCI/BOa03 ACOLITE-LUT-202110-MOD1 took 0.004s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa03 ACOLITE-LUT-202110-MOD2 took 0.004s (StdLUT)
+2023-11-17 10:02:45: Oa04
+2023-11-17 10:02:45: rhot_490
+2023-11-17 10:02:45: Oa04
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.128
+2023-11-17 10:02:45: S3A_OLCI/BOa04 ACOLITE-LUT-202110-MOD1 took 0.005s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa04 ACOLITE-LUT-202110-MOD2 took 0.010s (StdLUT)
+2023-11-17 10:02:45: Oa05
+2023-11-17 10:02:45: rhot_510
+2023-11-17 10:02:45: Oa05
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.112
+2023-11-17 10:02:45: S3A_OLCI/BOa05 ACOLITE-LUT-202110-MOD1 took 0.005s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa05 ACOLITE-LUT-202110-MOD2 took 0.003s (StdLUT)
+2023-11-17 10:02:45: Oa06
+2023-11-17 10:02:45: rhot_560
+2023-11-17 10:02:45: Oa06
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.082
+2023-11-17 10:02:45: S3A_OLCI/BOa06 ACOLITE-LUT-202110-MOD1 took 0.014s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa06 ACOLITE-LUT-202110-MOD2 took 0.007s (StdLUT)
+2023-11-17 10:02:45: Oa07
+2023-11-17 10:02:45: rhot_620
+2023-11-17 10:02:45: Oa07
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.057
+2023-11-17 10:02:45: S3A_OLCI/BOa07 ACOLITE-LUT-202110-MOD1 took 0.010s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa07 ACOLITE-LUT-202110-MOD2 took 0.009s (StdLUT)
+2023-11-17 10:02:45: Oa08
+2023-11-17 10:02:45: rhot_665
+2023-11-17 10:02:45: Oa08
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.048
+2023-11-17 10:02:45: S3A_OLCI/BOa08 ACOLITE-LUT-202110-MOD1 took 0.008s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa08 ACOLITE-LUT-202110-MOD2 took 0.004s (StdLUT)
+2023-11-17 10:02:45: Oa09
+2023-11-17 10:02:45: rhot_674
+2023-11-17 10:02:45: Oa09
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.047
+2023-11-17 10:02:45: S3A_OLCI/BOa09 ACOLITE-LUT-202110-MOD1 took 0.003s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa09 ACOLITE-LUT-202110-MOD2 took 0.007s (StdLUT)
+2023-11-17 10:02:45: Oa10
+2023-11-17 10:02:45: rhot_682
+2023-11-17 10:02:45: Oa10
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.045
+2023-11-17 10:02:45: S3A_OLCI/BOa10 ACOLITE-LUT-202110-MOD1 took 0.006s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa10 ACOLITE-LUT-202110-MOD2 took 0.008s (StdLUT)
+2023-11-17 10:02:45: Oa11
+2023-11-17 10:02:45: rhot_709
+2023-11-17 10:02:45: Oa11
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.039
+2023-11-17 10:02:45: S3A_OLCI/BOa11 ACOLITE-LUT-202110-MOD1 took 0.006s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa11 ACOLITE-LUT-202110-MOD2 took 0.005s (StdLUT)
+2023-11-17 10:02:45: Oa12
+2023-11-17 10:02:45: rhot_754
+2023-11-17 10:02:45: Oa12
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.038
+2023-11-17 10:02:45: S3A_OLCI/BOa12 ACOLITE-LUT-202110-MOD1 took 0.003s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa12 ACOLITE-LUT-202110-MOD2 took 0.004s (StdLUT)
+2023-11-17 10:02:45: Oa16
+2023-11-17 10:02:45: rhot_779
+2023-11-17 10:02:45: Oa16
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.033
+2023-11-17 10:02:45: S3A_OLCI/BOa16 ACOLITE-LUT-202110-MOD1 took 0.004s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa16 ACOLITE-LUT-202110-MOD2 took 0.004s (StdLUT)
+2023-11-17 10:02:45: Oa17
+2023-11-17 10:02:45: rhot_865
+2023-11-17 10:02:45: Oa17
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.021
+2023-11-17 10:02:45: S3A_OLCI/BOa17 ACOLITE-LUT-202110-MOD1 took 0.003s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa17 ACOLITE-LUT-202110-MOD2 took 0.002s (StdLUT)
+2023-11-17 10:02:45: Oa18
+2023-11-17 10:02:45: rhot_884
+2023-11-17 10:02:45: Oa18
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.017
+2023-11-17 10:02:45: S3A_OLCI/BOa18 ACOLITE-LUT-202110-MOD1 took 0.006s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa18 ACOLITE-LUT-202110-MOD2 took 0.009s (StdLUT)
+2023-11-17 10:02:45: Oa21
+2023-11-17 10:02:45: rhot_1016
+2023-11-17 10:02:45: Oa21
+2023-11-17 10:02:45: darkest
+2023-11-17 10:02:45: 0.019
+2023-11-17 10:02:45: S3A_OLCI/BOa21 ACOLITE-LUT-202110-MOD1 took 0.004s (StdLUT)
+2023-11-17 10:02:45: S3A_OLCI/BOa21 ACOLITE-LUT-202110-MOD2 took 0.005s (StdLUT)
+2023-11-17 10:02:45: Choosing best fitting model: min_drmsd (2 bands)
+2023-11-17 10:02:45: Computing RMSD for model ACOLITE-LUT-202110-MOD1
+2023-11-17 10:02:45: Computing RMSD for model ACOLITE-LUT-202110-MOD1: 1.9897e-03
+2023-11-17 10:02:45: Computing RMSD for model ACOLITE-LUT-202110-MOD2
+2023-11-17 10:02:45: Computing RMSD for model ACOLITE-LUT-202110-MOD2: 2.0823e-03
+2023-11-17 10:02:45: Selected model ACOLITE-LUT-202110-MOD1: aot 0.105, RMSD 1.99e-03
+2023-11-17 10:02:45: Reshaping wind to 82x76
+2023-11-17 10:02:45: use_revlut
+2023-11-17 10:02:45: True
+2023-11-17 10:02:45: Wrote rhot_400
+2023-11-17 10:02:45: Computing surface reflectance
+2023-11-17 10:02:45: Oa01
+2023-11-17 10:02:45: 400
+2023-11-17 10:02:45: 1.000
+2023-11-17 10:02:45: Wrote rhos_400
+2023-11-17 10:02:45: S3A_OLCI/BOa01 took 0.1s (RevLUT)
+2023-11-17 10:02:45: Wrote rhot_412
+2023-11-17 10:02:45: Computing surface reflectance
+2023-11-17 10:02:45: Oa02
+2023-11-17 10:02:45: 412
+2023-11-17 10:02:45: 1.000
+2023-11-17 10:02:45: Wrote rhos_412
+2023-11-17 10:02:45: S3A_OLCI/BOa02 took 0.1s (RevLUT)
+2023-11-17 10:02:46: Wrote rhot_443
+2023-11-17 10:02:46: Computing surface reflectance
+2023-11-17 10:02:46: Oa03
+2023-11-17 10:02:46: 443
+2023-11-17 10:02:46: 0.997
+2023-11-17 10:02:46: Wrote rhos_443
+2023-11-17 10:02:46: S3A_OLCI/BOa03 took 0.1s (RevLUT)
+2023-11-17 10:02:46: Wrote rhot_490
+2023-11-17 10:02:46: Computing surface reflectance
+2023-11-17 10:02:46: Oa04
+2023-11-17 10:02:46: 490
+2023-11-17 10:02:46: 0.983
+2023-11-17 10:02:46: Wrote rhos_490
+2023-11-17 10:02:46: S3A_OLCI/BOa04 took 0.1s (RevLUT)
+2023-11-17 10:02:46: Wrote rhot_510
+2023-11-17 10:02:46: Computing surface reflectance
+2023-11-17 10:02:46: Oa05
+2023-11-17 10:02:46: 510
+2023-11-17 10:02:46: 0.966
+2023-11-17 10:02:46: Wrote rhos_510
+2023-11-17 10:02:46: S3A_OLCI/BOa05 took 0.1s (RevLUT)
+2023-11-17 10:02:46: Wrote rhot_560
+2023-11-17 10:02:46: Computing surface reflectance
+2023-11-17 10:02:46: Oa06
+2023-11-17 10:02:46: 560
+2023-11-17 10:02:46: 0.914
+2023-11-17 10:02:46: Wrote rhos_560
+2023-11-17 10:02:46: S3A_OLCI/BOa06 took 0.1s (RevLUT)
+2023-11-17 10:02:46: Wrote rhot_620
+2023-11-17 10:02:46: Computing surface reflectance
+2023-11-17 10:02:46: Oa07
+2023-11-17 10:02:46: 620
+2023-11-17 10:02:46: 0.913
+2023-11-17 10:02:46: Wrote rhos_620
+2023-11-17 10:02:46: S3A_OLCI/BOa07 took 0.2s (RevLUT)
+2023-11-17 10:02:46: Wrote rhot_665
+2023-11-17 10:02:46: Computing surface reflectance
+2023-11-17 10:02:46: Oa08
+2023-11-17 10:02:46: 665
+2023-11-17 10:02:46: 0.958
+2023-11-17 10:02:46: Wrote rhos_665
+2023-11-17 10:02:46: S3A_OLCI/BOa08 took 0.2s (RevLUT)
+2023-11-17 10:02:47: Wrote rhot_674
+2023-11-17 10:02:47: Computing surface reflectance
+2023-11-17 10:02:47: Oa09
+2023-11-17 10:02:47: 674
+2023-11-17 10:02:47: 0.966
+2023-11-17 10:02:47: Wrote rhos_674
+2023-11-17 10:02:47: S3A_OLCI/BOa09 took 0.2s (RevLUT)
+2023-11-17 10:02:47: Wrote rhot_682
+2023-11-17 10:02:47: Computing surface reflectance
+2023-11-17 10:02:47: Oa10
+2023-11-17 10:02:47: 682
+2023-11-17 10:02:47: 0.966
+2023-11-17 10:02:47: Wrote rhos_682
+2023-11-17 10:02:47: S3A_OLCI/BOa10 took 0.2s (RevLUT)
+2023-11-17 10:02:47: Wrote rhot_709
+2023-11-17 10:02:47: Computing surface reflectance
+2023-11-17 10:02:47: Oa11
+2023-11-17 10:02:47: 709
+2023-11-17 10:02:47: 0.956
+2023-11-17 10:02:47: Wrote rhos_709
+2023-11-17 10:02:47: S3A_OLCI/BOa11 took 0.2s (RevLUT)
+2023-11-17 10:02:47: Wrote rhot_754
+2023-11-17 10:02:47: Computing surface reflectance
+2023-11-17 10:02:47: Oa12
+2023-11-17 10:02:47: 754
+2023-11-17 10:02:47: 0.976
+2023-11-17 10:02:47: Wrote rhos_754
+2023-11-17 10:02:47: S3A_OLCI/BOa12 took 0.1s (RevLUT)
+2023-11-17 10:02:47: Wrote rhot_762
+2023-11-17 10:02:47: Band Oa13 at 762 nm has tgas < min_tgas_rho (0.40 < 0.80)
+2023-11-17 10:02:47: Wrote rhot_765
+2023-11-17 10:02:47: Band Oa14 at 765 nm has tgas < min_tgas_rho (0.64 < 0.80)
+2023-11-17 10:02:47: Wrote rhot_768
+2023-11-17 10:02:47: Computing surface reflectance
+2023-11-17 10:02:47: Oa15
+2023-11-17 10:02:47: 768
+2023-11-17 10:02:47: 0.898
+2023-11-17 10:02:48: Wrote rhos_768
+2023-11-17 10:02:48: S3A_OLCI/BOa15 took 0.1s (RevLUT)
+2023-11-17 10:02:48: Wrote rhot_779
+2023-11-17 10:02:48: Computing surface reflectance
+2023-11-17 10:02:48: Oa16
+2023-11-17 10:02:48: 779
+2023-11-17 10:02:48: 0.991
+2023-11-17 10:02:48: Wrote rhos_779
+2023-11-17 10:02:48: S3A_OLCI/BOa16 took 0.1s (RevLUT)
+2023-11-17 10:02:48: Wrote rhot_865
+2023-11-17 10:02:48: Computing surface reflectance
+2023-11-17 10:02:48: Oa17
+2023-11-17 10:02:48: 865
+2023-11-17 10:02:48: 0.997
+2023-11-17 10:02:48: Wrote rhos_865
+2023-11-17 10:02:48: S3A_OLCI/BOa17 took 0.1s (RevLUT)
+2023-11-17 10:02:48: Wrote rhot_884
+2023-11-17 10:02:48: Computing surface reflectance
+2023-11-17 10:02:48: Oa18
+2023-11-17 10:02:48: 884
+2023-11-17 10:02:48: 0.993
+2023-11-17 10:02:48: Wrote rhos_884
+2023-11-17 10:02:48: S3A_OLCI/BOa18 took 0.1s (RevLUT)
+2023-11-17 10:02:48: Wrote rhot_899
+2023-11-17 10:02:48: Band Oa19 at 899 nm has tgas < min_tgas_rho (0.71 < 0.80)
+2023-11-17 10:02:48: Wrote rhot_939
+2023-11-17 10:02:48: Band Oa20 at 939 nm has tgas < min_tgas_rho (0.27 < 0.80)
+2023-11-17 10:02:48: Wrote rhot_1016
+2023-11-17 10:02:48: Computing surface reflectance
+2023-11-17 10:02:48: Oa21
+2023-11-17 10:02:48: 1016
+2023-11-17 10:02:48: 0.989
+2023-11-17 10:02:48: Wrote rhos_1016
+2023-11-17 10:02:48: S3A_OLCI/BOa21 took 0.1s (RevLUT)
+2023-11-17 10:02:48: Wrote c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L2_acolite/S3A_OLCI_2020_06_02_15_46_02_L2R_projected.nc
+2023-11-17 10:02:49: Wrote c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L2_acolite/S3A_OLCI_2020_06_02_15_46_02_L2R_projected_rgb_rhos.png

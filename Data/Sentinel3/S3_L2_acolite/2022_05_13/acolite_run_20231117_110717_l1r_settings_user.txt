@@ -1,0 +1,12 @@
+## ACOLITE settings
+## Written at 2023-11-17 11:07:17
+inputfile=c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L1/S3B_OL_1_EFR____20220513T164019_20220513T164319_20220513T183431_0179_066_026_2160_PS2_O_NR_002.SEN3
+limit=42.975101260529925,-89.5221791989459,43.20072851621282,-89.26008675058664
+output=c:/Users/ssharp/Documents/git/LE2022/Data/Sentinel3/S3_L2_acolite
+dsf_aot_estimate=fixed
+dsf_spectrum_option=darkest
+reproject_before_ac=True
+output_projection=True
+limit_buffer=0.1
+new_path=None
+runid=20231117_110717
