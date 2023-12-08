@@ -6,7 +6,7 @@ pacman::p_load(tidyverse, patchwork, lubridate)
 
 ### Load in all of the data and make sure they all have doy and year columns ###
 
-metabolism <- read_csv('Data/Metabolism_Model_Output/SimResultsMatrix_MetabData_run12jan23.csv')
+metabolism <- read_csv('Data/Metabolism_Model_Output/SimResultsMatrix_MetabData_run05oct23.csv')
 metabolism <- metabolism %>%
   mutate(doy = yday(SimDate)) %>%
   mutate(year = year(SimDate))
@@ -27,6 +27,9 @@ rs <- read_csv('Data/Sentinel2/S2_Red_RedEdge1.csv')
 rs <- rs %>%
   mutate(doy = yday(Date),
          year = year(Date))
+# There are two red edge outliers that we want to remove so we can better visualize the trends on this figure. We are going to replace those values with NA.
+rs$Red.RedEdge1.r[rs$Red.RedEdge1.r >= 1.2] <- NA
+rs$Red.RedEdge1.r[rs$Red.RedEdge1.r <= 0.6] <- NA
 
 landsat <- read_csv('Data/Landsat/LS8_Buoy100m.csv')
 landsat <- landsat %>%
@@ -40,6 +43,11 @@ buoy <- buoy %>%
 # There are two really high phycocyanin outliers that we want to remove (they're above 20000 RFU) so we can better visualize the trends on this figure. We are going to replace those values with NA.
 buoy$avg_phyco_rfu[buoy$avg_phyco_rfu >= 20000] <- NA
 
+cyan <- read_csv('Data/CyAN/Mendota_Daily.csv')
+cyan <- cyan %>%
+  mutate(doy = yday(ImageDater)) %>%
+  mutate(year = year(ImageDater))
+
 # Add in the season boundaries by first creating an empty data frame of all possible dates
 empty <- data.frame(date = seq(as.Date("01-01-2000", format = "%m-%d-%Y"), as.Date("12-31-2022", format = "%m-%d-%Y"), by = "day")) %>%
   mutate(doy = yday(date),
@@ -50,117 +58,120 @@ seasons <- read.csv('MetabolismModel/seasons_from_Robins_paper_long_withplacehol
 DATA <- left_join(empty, seasons) %>%
   fill(season, .direction="down")
 
+# write csv for Bryan for the RF analysis
+# write.csv(DATA, "dates_seasons.csv", row.names = F, quote=T)
+
 # Join all of the data together into one dataframe
 DATA <- left_join(DATA, metabolism_filter, by = c("year", "doy"))
 DATA <- left_join(DATA, microbes, by = c("year", "doy"))
 DATA <- left_join(DATA, rs, by = c("year", "doy"))
 DATA <- left_join(DATA, landsat, by = c("year", "doy"))
 DATA <- left_join(DATA, buoy, by = c("year", "doy"))
+DATA <- left_join(DATA, cyan, by = c("year", "doy"))
 
 # Add a column for NEP (NPP-R)
 DATA <- DATA %>%
   mutate(EpiNEP_mgC_L = EpiNPP_mgC_L-EpiR_mgC_L)
+# didn't end up including in the plot because it looked a lot like GPP/NPP
+
+# jump down for presentation version of the plot
 
 # Remove unnecessary columns and make long format for plotting
 DATA_long <- DATA %>% 
-  select(doy, year, season, EpiNEP_mgC_L, EpiR_mgC_L, EpiNPP_mgC_L, Cyanobacteria_rel_abund_16S, avg_phyco_rfu, avg_chlor_rfu, Red.RedEdge1.r, ST_B10) %>%
-  pivot_longer(EpiNEP_mgC_L:ST_B10, names_to = "variable", values_to = "value")
+  select(doy, year, season, EpiR_mgC_L, EpiNPP_mgC_L, Cyanobacteria_rel_abund_16S, avg_phyco_rfu, avg_chlor_rfu, Red.RedEdge1.r, ST_B10, MaxCA) %>%
+  pivot_longer(EpiR_mgC_L:MaxCA, names_to = "variable", values_to = "value")
     
 ### Time series plot ###
 
 ## Preliminary plot set-up
 
 # Fix order of facets
-DATA_long$variable <- factor(DATA_long$variable, levels = c("EpiNPP_mgC_L", "EpiR_mgC_L", "EpiNEP_mgC_L",
-                                                            "avg_chlor_rfu", "avg_phyco_rfu", "Cyanobacteria_rel_abund_16S", "Red.RedEdge1.r", "ST_B10"))
+DATA_long$variable <- factor(DATA_long$variable, levels = c("EpiNPP_mgC_L", "EpiR_mgC_L", 
+                                                            "avg_chlor_rfu", "avg_phyco_rfu", "Cyanobacteria_rel_abund_16S", "MaxCA", "Red.RedEdge1.r", "ST_B10"))
 
 # Rename columns to more descriptive facet labels
 facet_names <- as_labeller(
-  c(avg_chlor_rfu = "Average surface chlorophyll fluorescence (RFU)", 
-    avg_phyco_rfu = "Average surface phycocyanin fluorescence (RFU)",
+  c(avg_chlor_rfu = "Average surface chlorophyll fluorescence (relative fluorescence units)", 
+    avg_phyco_rfu = "Average surface phycocyanin fluorescence (relative fluorescence units)",
     Cyanobacteria_rel_abund_16S = "Relative abundance of Cyanobacteria in 16S data (%)",
-    EpiNPP_mgC_L = "Modeled epilimnion Net Primary Production (NPP) (mgC/L/d)",
+    EpiNPP_mgC_L = "Modeled epilimnion Gross Primary Production (GPP) (mgC/L/d)",
     EpiR_mgC_L = "Modeled epilimnion Respiration (R) (mgC/L/d)", 
-    EpiNEP_mgC_L = "Modeled epilimnion Net Ecosystem Production (NEP) (mgC/L/d)",
+    MaxCA = "Maximum Cyanobacterial abundance from CyAN (cells/mL)",
     Red.RedEdge1.r = "Sentinel-2 Red/Red-Edge 1 ratio",
     ST_B10 = "Landsat 8 surface temperature (Kelvin)"))
 
 # Fix order of seasons in legend
 DATA_long$season <- factor(DATA_long$season, levels = c("Ice-on", "Spring", "Clearwater", "Early Summer", "Late Summer", "Fall"))
 
+
 ## Create the plot
 timeseries <- ggplot(DATA_long) +
-  geom_point(aes(x = doy, y = value, color = season), size = 1) +
+  geom_point(aes(x = doy, y = value, color = season), size = 2.2) +
   facet_wrap(.~variable, ncol = 1, scales = "free_y", labeller = facet_names) +
   #scale_color_viridis_d() +
-  scale_color_manual(values=c("#999999", "#440154", "#3b528b","#21918c","#5ec962","#fde725")) +
+  #scale_color_manual(values=c("#999999", "#440154", "#3b528b","#21918c","#5ec962","#fde725")) +
+  scale_color_manual(values=c("#999999", "#73456D",  "#B2CCF1","#EE914A", "#9AD67A","#138E90")) +
   ylab("Value") +
   xlab("Day of year") +
-  theme_bw(base_size = 19) +
+  theme_bw(base_size = 32) +
   labs(color = "Season") +
-  guides(color = guide_legend(override.aes = list(size = 4))) +
+  guides(color = guide_legend(override.aes = list(size = 5.5))) +
   theme(panel.grid.major = element_blank(),
-        legend.title = element_text(size = 19),
-        legend.text = element_text(size = 19))
+        legend.position = "top",
+        axis.text.y = element_text(size = 22),
+        legend.text = element_text(size = 33),
+        legend.title = element_text(size = 33),
+        strip.text = element_text(face = "bold"))
   
+# maybe make the facet labels bold - don't remember how to do this
 
-#ggsave("Figures/time_series/time_series_plot_v2.png", timeseries, width = 13, height = 14, units = 'in', device = "png")
+ggsave("Figures/time_series/time_series_plot_v5.png", timeseries, width = 15, height = 23, units = 'in', device = "png", dpi=1000)
+
+# jump here for presentation version of the plot
+
+# Remove unnecessary columns and make long format for plotting
+DATA_long <- DATA %>% 
+  select(doy, year, season, EpiR_mgC_L, EpiNPP_mgC_L, Cyanobacteria_rel_abund_16S, avg_phyco_rfu, Red.RedEdge1.r, ST_B10) %>%
+  pivot_longer(EpiR_mgC_L:ST_B10, names_to = "variable", values_to = "value")
+
+### Time series plot ###
+
+## Preliminary plot set-up
+
+# Fix order of facets
+DATA_long$variable <- factor(DATA_long$variable, levels = c("EpiNPP_mgC_L", "EpiR_mgC_L", 
+                                                             "avg_phyco_rfu", "Cyanobacteria_rel_abund_16S", "Red.RedEdge1.r", "ST_B10"))
+
+# Rename columns to more descriptive facet labels
+facet_names <- as_labeller(
+  c(avg_phyco_rfu = "Average surface phycocyanin fluorescence (RFUs)",
+    Cyanobacteria_rel_abund_16S = "Relative abund. of Cyanobacteria in 16S data (%)",
+    EpiNPP_mgC_L = "Epilimnion Gross Primary Production (GPP) (mgC/L/d)",
+    EpiR_mgC_L = "Epilimnion Respiration (R) (mgC/L/d)", 
+    Red.RedEdge1.r = "Sentinel-2 Red/Red-Edge 1 ratio",
+    ST_B10 = "Landsat 8 surface temperature (Kelvin)"))
+
+# Fix order of seasons in legend
+DATA_long$season <- factor(DATA_long$season, levels = c("Ice-on", "Spring", "Clearwater", "Early Summer", "Late Summer", "Fall"))
 
 
+## Create the plot
+timeseries <- ggplot(DATA_long) +
+  geom_point(aes(x = doy, y = value, color = season), size = 2) +
+  facet_wrap(.~variable, ncol = 2, scales = "free_y", labeller = facet_names) +
+  #scale_color_viridis_d() +
+  #scale_color_manual(values=c("#999999", "#440154", "#3b528b","#21918c","#5ec962","#fde725")) +
+  scale_color_manual(values=c("#999999", "#73456D",  "#B2CCF1","#EE914A", "#9AD67A","#138E90")) +
+  ylab("Value") +
+  xlab("Day of year") +
+  theme_bw(base_size = 27) +
+  labs(color = "Season") +
+  guides(color = guide_legend(override.aes = list(size = 5.5))) +
+  theme(panel.grid.major = element_blank(),
+        legend.position = "right",
+        axis.text.y = element_text(size = 22),
+        legend.text = element_text(size = 22),
+        legend.title = element_text(size = 22),
+        strip.text = element_text(face = "bold", size = 23))
 
-
-
-# Old code using patchwork instead of faceting
- 
-npp <- ggplot(metabolism_filter)+
-    geom_point(aes(x = doy, y = EpiNPP_mgC_L, color = year), size = 0.5)+
-  scale_color_viridis_c() +
-    ylab("NPP (mgC/L/day)")+
-    xlab("")+
-    theme_bw()
-
-resp <- ggplot(metabolism_filter)+
-  geom_point(aes(x = doy, y = EpiR_mgC_L, color = year), size = 0.5)+
-  scale_color_viridis_c() +
-  ylab("R (mgC/L/day)")+
-  xlab("")+
-  theme_bw()
-
-cyano <-ggplot(microbes) +
-  geom_point(aes(x = doy, y = Cyanobacteria_rel_abund_16S, color = year), size = 0.5)+
-  scale_color_viridis_c() +
-  ylab("Cyanobacterial rel. abund. (%)")+
-  xlab("")+
-  theme_bw()
-
-rededge <- ggplot()+
-  geom_point(data = rs, aes(x = doy, y = Red.RedEdge1.r, color = year), size = 0.5)+
-  scale_color_viridis_c() +
-  ylab("Sentinel Red Band Ratio")+
-  xlab("")+
-  theme_bw()
-
-tempband <- ggplot()+
-  geom_point(data = landsat, aes(x = doy, y = ST_B10, color = year), size = 0.5)+
-  scale_color_viridis_c() +
-  ylab("Landsat Thermal Band")+
-  xlab("")+
-  theme_bw()
-
-phycocyanin <- ggplot()+
-  geom_point(data = buoy, aes(x = doy, y = avg_phyco_rfu, color = year), size = 0.5)+
-  scale_color_viridis_c() +
-  ylab("Buoy Phycocyanin (RFU)")+
-  xlab("")+
-  theme_bw()
-
-chla <- ggplot()+
-  geom_point(data = buoy, aes(x = doy, y = avg_chlor_rfu, color = year), size = 0.5)+
-  scale_color_viridis_c() +
-  ylab("Buoy Chlorophyll-a (RFU)")+
-  xlab("Day of year")+
-  theme_bw()
-
-npp/resp/cyano/phycocyanin/chla/rededge/tempband
-
-#ggsave("figures/doy.png", width = 10, height = 12, units = 'in')
+ggsave("Figures/time_series/time_series_plot_presentation_v1.png", timeseries, width = 23, height = 9, units = 'in', device = "png", dpi=1000)
