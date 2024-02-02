@@ -205,4 +205,19 @@ AVIRIS_lake_long %>%
 
 ggsave("Data/AVIRIS/AVIRIS_lake_avg_spectra.png")
 
-
+AVIRIS_lake_long %>%
+  na.omit() %>%
+  ggplot(aes(x=Wavelength_nm,y=Rrs)) +
+  geom_line(aes(linetype=date)) +
+  theme_bw() +
+  xlim(400,800) +
+  ylim(0,0.03) +
+  labs(linetype = "AVIRIS-ng Scene",x = "Wavelength (nm)") +
+  theme(
+    legend.position = c(.95, .95),
+    legend.justification = c("right", "top"),
+    legend.box.just = "right",
+    legend.margin = margin(6, 6, 6, 6)
+  ) +
+  scale_linetype_discrete(labels = c("8/22/2016","8/31/2016"))
+ggsave("Data/AVIRIS/AVIRIS_combined_spectra_forAGU.png",dpi=300,width = 6, height = 4)
