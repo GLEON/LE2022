@@ -1,0 +1,247 @@
+---
+title: "Updating_hydro_input"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Get packages 
+
+```{r}
+library(tidyverse)
+library(dataRetrieval)
+library(ggpmisc)
+```
+
+## Get modeled data together
+
+```{r}
+#make list of dates we need 
+dates <- data.frame( "Date" = seq(ymd("1979-01-01"), ymd("2022-12-31"), by = "day"))
+
+#### Modeled hydrology from Paul
+hydro_modeled <- read_csv("./MetabolismMendotaLE2022/DriverData/hydro_inputs_1979_2015.csv")
+hydro_modeled <- hydro_modeled %>% 
+  rename("Date" = "time")
+
+hydro_modeled_A <- left_join(dates, hydro_modeled, by = "Date")
+
+```
+
+## Get USGS data 
+```{r}
+#### Get daily Yahara River and Pheasant Branch USGS data 
+#set site numbers 
+sitenos <- c("05427850", "05427948") # PB: "05427948"
+
+#get site info
+siteinfo <- readNWISsite(sitenos)
+data_available <- whatNWISdata(siteNumber = sitenos, service = "dv")
+
+#get daily Q
+startDate <- "1979-01-01"
+endDate <- "2022-12-31"
+parameter <- "00060"
+
+Qdat <- readNWISdv(sitenos, parameter, startDate, endDate) %>% 
+  renameNWISColumns()
+
+Qdata <- left_join(Qdat, siteinfo, by = c("site_no"))
+
+Qdat_wide <- Qdat %>% 
+  select(Date, site_no, Flow) %>% 
+  pivot_wider(names_from = site_no, values_from = Flow) %>% 
+  rename(Yah_usgs = "05427850",
+         Pb_usgs = "05427948")
+
+
+#### Bind USGS to modeled hydro 
+hydro_comp <- full_join(hydro_modeled_A, Qdat_wide, by = c("Date"))
+
+
+```
+
+## Make Total inflow regression 
+
+```{r}
+#Yah usgs to toal inflow modeled
+hydro_comp %>% 
+  ggplot(aes(x = (Yah_usgs), y = (total_inflow_volume)))+
+  geom_point()+
+  stat_poly_line() +
+  stat_poly_eq() 
+
+summary(lm(data = hydro_comp, total_inflow_volume ~ Yah_usgs))
+
+totalLM <- lm(data = hydro_comp, total_inflow_volume ~ Yah_usgs)
+hist(totalLM$residuals)
+
+#Pb usgs to toal inflow modeled
+
+hydro_comp %>% 
+  ggplot(aes(x = Pb_usgs, y = total_inflow_volume))+
+  geom_point()+
+  stat_poly_line() +
+  stat_poly_eq() 
+
+#checking log of Yah to modeled for bias
+hydro_comp %>% 
+  ggplot(aes(x = log10(Yah_usgs), y = log10(total_inflow_volume)))+
+  geom_point()+
+  stat_poly_line() +
+  stat_poly_eq() 
+
+totalLMlog <- lm(data = hydro_comp, log10(total_inflow_volume) ~ log10(Yah_usgs))
+hist(totalLMlog$residuals)
+summary(totalLMlog)
+
+summary(totalLM)
+hydro_comp$total_modeled_regress <- ((hydro_comp$Yah * 5202.92) + 174202.93)
+
+hydro_comp %>% 
+  ggplot()+
+  geom_line(aes(x = Date, y = total_inflow_volume, col = "PennSt Model"))+
+  geom_line(aes(x = Date, y = total_modeled_regress, col = "USGS"))+
+  ylim(0, 2e+06)+ #just to remove extreme high values for visualization
+  theme_bw()
+```
+
+## Yah regression 
+
+```{r}
+
+hydro_comp %>% 
+  ggplot(aes(x = Yah_usgs, y = yah_flow_vol))+
+  geom_point()+
+  stat_poly_line() +
+  stat_poly_eq() 
+
+summary(lm(data = hydro_comp, yah_flow_vol ~ Yah_usgs))
+
+yahLM <- lm(data = hydro_comp, yah_flow_vol ~ Yah_usgs)
+hist(yahLM$residuals)
+
+hydro_comp %>% 
+  ggplot(aes(x = log10(Yah_usgs), y = log10(yah_flow_vol)))+
+  geom_point()+
+  stat_poly_line() +
+  stat_poly_eq() 
+
+yahLMlog <- lm(data = hydro_comp, log10(yah_flow_vol) ~ log10(Yah_usgs))
+hist(yahLMlog$residuals)
+# summary(lm(data = hydro_comp, total_inflow_volume ~ Yah + Pb))
+summary(yahLMlog)
+
+summary(yahLM)
+hydro_comp$yah_modeled_regress <- ((hydro_comp$Yah_usgs * 4511.4) + 179782.8)
+
+hydro_comp %>% 
+  ggplot()+
+  geom_line(aes(x = Date, y = yah_flow_vol, col = "PennSt Model"))+
+  geom_line(aes(x = Date, y = yah_modeled_regress, col = "USGS"))+
+  ylim(0, 2e+06)+ #just to remove extreme high values for visualization
+  theme_bw()
+
+
+```
+
+
+## Pb regression
+
+```{r}
+
+hydro_comp %>% 
+  ggplot(aes(x = Pb_usgs, y = pb_flow_vol))+
+  geom_point()+
+  stat_poly_line() +
+  stat_poly_eq() 
+
+summary(lm(data = hydro_comp, pb_flow_vol ~ Pb_usgs))
+
+pbLM <- lm(data = hydro_comp, pb_flow_vol ~ Pb_usgs)
+hist(pbLM$residuals)
+
+hydro_comp %>% 
+  ggplot(aes(x = log10(Pb_usgs), y = log10(pb_flow_vol)))+
+  geom_point()+
+  stat_poly_line() +
+  stat_poly_eq() 
+
+hydro_comp_pb_regress <- hydro_comp %>% 
+  filter(pb_flow_vol > 0 )
+pbLMlog <- lm(data = hydro_comp_pb_regress, log10(pb_flow_vol) ~ log10(Pb_usgs))
+hist(pbLMlog$residuals)
+summary(yahLMlog)
+
+summary(pbLM)
+hydro_comp$pb_modeled_regress <- ((hydro_comp$Pb_usgs * 2093.02) + 35092.17)
+
+hydro_comp %>% 
+  ggplot()+
+  geom_line(aes(x = Date, y = pb_flow_vol, col = "PennSt Model"))+
+  geom_line(aes(x = Date, y = pb_modeled_regress, col = "USGS"))+
+  ylim(0, 0.5e+06)+ #just to remove extreme high values for visualization
+  theme_bw()
+```
+
+
+## Fill 2016 to 2022
+Need 2015-12-31 to 2022-12-31
+
+```{r}
+head(hydro_comp)
+
+hydro_FIN <- hydro_comp %>% 
+  mutate(yah_flow_vol_FIN = ifelse(is.na(yah_flow_vol), yah_modeled_regress, yah_flow_vol),
+         pb_flow_vol_FIN = ifelse(is.na(pb_flow_vol), pb_modeled_regress, pb_flow_vol),
+         total_flow_vol_FIN = ifelse(is.na(total_inflow_volume), total_modeled_regress, total_inflow_volume)
+         )
+
+hydro_FIN_A <- hydro_FIN %>% 
+  select(Date, yah_flow_vol_FIN, pb_flow_vol_FIN, total_flow_vol_FIN) %>% 
+  rename(
+    time = Date, #need this to match format in Paul scripts
+    yah_flow_vol = yah_flow_vol_FIN,
+    pb_flow_vol = pb_flow_vol_FIN,
+    total_inflow_volume = total_flow_vol_FIN
+  )
+
+getwd()
+#write.csv(hydro_FIN_A, "./MetabolismMendotaLE2022/DriverData/hydro_inputs_1979_2022_RegressMethod.csv", row.names = F)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_
+
+
+
+
+
+
+
+

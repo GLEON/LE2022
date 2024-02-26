@@ -7,8 +7,11 @@ Data/DESIS/L2R_raw_from_SMCE
 Data/DESIS/L2W_raw_from_SMCE
 Data/DESIS/L2W_destriped
 Data/DESIS/L2W_clipped_to_buoy
+Data/DESIS/DESIS_scenes
 Data/Buoy_100m_shp
 CO_ignore/*
 Data/PRISMA/buoy
 Data/PRISMA/lake
 Data/PRISMA/L2W
+Data/PRISMA/PRISMA_scenes
+Data/Sentinel3/S3_L1

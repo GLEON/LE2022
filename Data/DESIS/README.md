@@ -7,4 +7,4 @@ Follow these instructions to get them in your project:
 3. Extract those files into Data/DESIS/L2W_destriped
 4. Now you should be able to use these files in any scripts and analyses within this project, without having to push or pull them.
 
-**NOTE**: if these files are ever updated you will need to re-download the new version and replace the copy on your computer. This version is current as of March 21, 2023.
+**NOTE**: if these files are ever updated you will need to re-download the new version and replace the copy on your computer. This version is current as of August 23, 2023 (Sam reclipped to 250m revised lake buffer).
