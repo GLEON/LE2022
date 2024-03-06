@@ -1,0 +1,188 @@
+# PRISMA PCA comparisons
+
+## Load libraries
+library(sp)
+#library(raster)
+library(tidyverse)
+library(plyr)
+library(corrplot)
+library(caret)
+library(rpart)
+library(rattle)
+library(ade4)
+library(plyr)
+# Load list of scenes
+
+flist = dir("Data/PRISMA/Vnorm/lake")
+#Initialize storage for variances and components
+vars = tibble()
+lds = tibble()
+
+## ONLY NEED TO RUN ONCE AND THEN CAN LOAD COMPILED CSV IN LINE BELOW (COMMENT THE REST OUT)
+# compile PRISMA scenes to one common file
+# PRISMA lake clipped data
+
+# #Load first file and add to PRISMA_lake that will eventually contain all PRISMA lake data
+prisma <- read.csv(file.path("Data/PRISMA/Vnorm/lake",flist[1]))
+ date = flist[1]
+PRISMA_lake <- cbind(date,prisma)
+ for(i in 2:length(flist)){
+   prisma <- read.csv(file.path("Data/PRISMA/Vnorm/lake",flist[i]))
+   date = flist[i]
+  temp <- cbind(date,prisma)
+  PRISMA_lake <- plyr::rbind.fill(PRISMA_lake,temp)
+ }
+# 
+ PRISMA_lake <- PRISMA_lake %>% mutate(date = substr(date,8,17))
+# 
+# #export summary file
+write.csv(PRISMA_lake,'Data/PRISMA/Vnorm/PRISMA_lake_compiled.csv')
+
+## Load compiled csv
+# MAKE SURE YOU PULL PRISMA_lake_compiled off Google Drive: 
+# https://drive.google.com/drive/u/1/folders/1z6HNn4lAW20FnxJWGRZyuyDgpvSD1sYu
+# And save in Data/PRISMA
+PRISMA_lake <- read.csv('Data/PRISMA/Vnorm/PRISMA_lake_compiled.csv')
+
+
+##### Subsample
+# subsample 10% PRISMA data because 
+# Critical Scale of Variability ~100m
+# PRISMA pixels are 30m, so 3x3 grid of PRISMA pixels is ~100x100m 
+# Which means we subsample 1/9 = 11.1% so 10% is fine
+prsma_sub<-PRISMA_lake %>% select(-Rrs_765) %>% #drop 765 as over half are missing
+  group_by(date) %>% select(c(Rrs_453:Rrs_849)) %>%
+  drop_na() %>%
+slice_sample(prop=0.10)
+# run pca
+prsm_s2<-prsma_sub %>% ungroup(date) %>% select(-date)
+
+pca_prsm<-princomp(prsm_s2,cor=TRUE)
+  
+summary(pca_prsm)
+biplot(pca_prsm)
+
+screeplot(pca_prsm)#shows variance represented by each component
+#improve biplot
+library(ggfortify)
+peu<-autoplot(pca_prsm,loadings=TRUE,loadings.label=T,loadings.label.repel=T, loadings.colour="black",loadings.label.colour="black")+
+  theme_bw()
+peu
+# or to include date
+#install.packages('ggord')
+require(ggord)
+
+
+psm_gg<-ggord(pca_prsm,prsma_sub$date,cols=c("firebrick4","orange","yellowgreen","cornflowerblue","purple3","pink3","deeppink2"),ellipse=FALSE,vec_ext=4.5,vectyp="solid",xlims=c(-4,3),ylims=c(-3,4),repel=TRUE,grp_title="Bout",size=3,max.overlaps=50)
+
+# get variances represented by each PC
+  variances <- as_tibble(pca_prsm$sdev^2, rownames = "component") %>% #convert SD to variance
+    mutate(proportion = value/sum(value) #proportion of total variance represented
+           ) #add image information in a separate column ? date = prsma_sub$date
+# decide how many components to retain
+  vari10<- variances %>% filter(component %in% c("Comp.1","Comp.2","Comp.3","Comp.4","Comp.5","Comp.6",
+                                                 "Comp.7","Comp.8","Comp.9","Comp.10"))
+  
+  #variances = variances %>% 
+  # filter(proportion >= 0.01) #just keep those representing at least 1% of variance
+  #slice_head(n = (nrow(variances[variances$proportion >= 0.01,])+1)) #or keep those plus one
+  
+  # get loadings for top 10 components
+  loadings = pca_prsm$loadings[,1:10] %>% #only keep the ones that have been retained
+    as_tibble(rownames = "band") %>% 
+    janitor::clean_names() %>%
+    pivot_longer(cols = starts_with("comp")) %>% #this will cause an error if only retaining one PC - just comment out this line and fix it manually for that case
+    mutate(band = as.numeric(str_remove(band, "Rrs_"))) #format wavelengths for plotting
+           #img_date = img_date) #tag with image date
+  
+# plot loadings  
+loadings %>% filter(name %in%c("comp_1","comp_2","comp_3","comp_4","comp_5")) %>%
+  ggplot(aes(x = band, y = value))+
+    theme_bw()+
+    geom_line(aes(group = name, color = name))+
+    scale_color_discrete(name = "Component")+
+    labs(x = "Wavelength", y = "Loading")
+
+# save information from this image -NOT WORKING
+  vars = bind_rows(vars, variances)
+  lds = bind_rows(lds, loadings)
+
+
+# save information to files
+write_csv(loadings, "Data/PRISMA/prisma_PCAtop10_loadings.csv")
+write_csv(vari10, "Data/PRISMA/prisma_PCAtop10_variances.csv")
+
+#plot all PC loadings
+
+lds = lds %>% 
+  filter(img_date!="orrected.z")
+lds %>% 
+  mutate(grp = paste(name, img_date),
+         #following line is to group the panels
+         cat = case_when(name %in% c("comp_1", "comp_2") ~ "PC 1, 2",
+                         name %in% c("comp_4", "comp_5") ~ "PC 4, 5",
+                         name %in% c("comp_6", "comp_7") ~ "PC 6, 7",
+                         T ~ "PC 3")) %>% 
+  ggplot(aes(x = band, y = value))+
+  geom_line(aes(group = grp, color= img_date, lty = name))+
+  scale_linetype_manual(values = c(1,2,1,2,1,2,1), guide = "none")+
+#  facet_wrap(~ cat)+
+  facet_wrap(~name)+
+  scale_color_discrete(name = "Image Date")+
+  labs(x = "Wavelength", y = "Loading", title = "PRISMA: all PCs over 1% variance")+
+  theme_bw()
+  
+ggsave("Outputs/PCA_outputs/PRISMA/loadings_by_component.png")
+
+lds %>% 
+  mutate(grp = paste(name, img_date)) %>% 
+  ggplot(aes(x = band, y = value))+
+  geom_line(aes(group = grp, color= name))+
+ # scale_linetype_manual(values = c(1,2,1,2,1,2,1), guide = "none")+
+  #  facet_wrap(~ cat)+
+  facet_wrap(~img_date)+
+  scale_color_discrete(name = "PC")+
+  labs(x = "Wavelength", y = "Loading", title = "PRISMA: all PCs over 1% variance")+
+  theme_bw()
+
+ggsave("Outputs/PCA_outputs/PRISMA/loadings_by_date.png")
+
+#denoise
+lds %>% 
+  filter(name != "comp_5",
+         name != "comp_4" | img_date %in% c("2022_06_16", "2022_07_27"),
+         name != "comp_6" | img_date != "2022_06_16") %>% 
+  mutate(grp = paste(name, img_date)) %>% 
+  ggplot(aes(x = band, y = value))+
+  geom_line(aes(group = grp, color= name))+
+  # scale_linetype_manual(values = c(1,2,1,2,1,2,1), guide = "none")+
+  #  facet_wrap(~ cat)+
+  facet_wrap(~img_date)+
+  scale_color_discrete(name = "PC")+
+  labs(x = "Wavelength", y = "Loading", title = "PRISMA: all PCs over 1% variance")+
+  theme_bw()
+
+ggsave("Outputs/PCA_outputs/PRISMA/loadings_bydate_denoised.png")
+
+## scratch -- transparancy by weight
+vars = read_csv("Outputs/PCA_outputs/PRISMA/prisma_PCA_variances.csv") %>% 
+  mutate(component = component %>% str_replace("Comp.", "comp_")) %>% 
+  dplyr::select(-value)
+
+data = lds %>% 
+  left_join(vars, by = c("name" = "component", "img_date"))
+
+data %>% 
+  mutate(grp = paste(name, img_date),
+         #following line is to group the panels by shape
+         cat = case_when(name %in% c("comp_1", "comp_2") ~ "PC 1, 2",
+                         name %in% c("comp_4", "comp_5") ~ "PC 4, 5",
+                         name %in% c("comp_6", "comp_7") ~ "PC 6, 7",
+                         T ~ "PC 3"))%>% 
+  ggplot(aes(x = band, y = value))+
+  geom_line(aes(group = grp, color= img_date, alpha = sqrt(sqrt(proportion))))+
+  facet_wrap(~ name)+
+  scale_color_discrete(name = "Image Date")+
+  scale_alpha(name = "Prop. Var \nExplained", range = c(0, 1))+
+  labs(x = "Wavelength", y = "Loading", title = "PRISMA: all PCs at/over 1% variance")+
+  theme_bw()
