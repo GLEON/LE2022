@@ -12,5 +12,10 @@ Data/Buoy_100m_shp
 CO_ignore/*
 Data/PRISMA/buoy
 Data/PRISMA/lake
+Data/PRISMA/lake/vnorm
 Data/PRISMA/PRISMA_scenes
+Data/PRISMA/PRISMA_lake_compiled.csv
 Data/Sentinel3/S3_L1
+Data/AVIRIS/lake
+Data/AVIRIS/vnorm
+Data/AVIRIS/vnorm_compiled
