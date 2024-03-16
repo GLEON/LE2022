@@ -35,6 +35,12 @@ pca_dss<-princomp(dss_sw,cor=TRUE)
 summary(pca_dss) #prints loadings
 biplot(pca_dss)
 
+#save PCA output
+pca_dss_scores = pca_prsm$scores
+pca_dss_ldgs = pca_dss$loadings
+saveRDS(pca_dss_ldgs, "Outputs/PCA_outputs/PRISMA/pca_dss_ldgs.rds")
+saveRDS(pca_dss_scores, "Outputs/PCA_outputs/PRISMA/pca_dss_scores.rds")
+
 screeplot(pca_dss)#shows variance represented by each component
 #improve biplot
 library(ggfortify)

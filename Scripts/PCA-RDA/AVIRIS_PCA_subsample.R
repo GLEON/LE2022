@@ -24,36 +24,47 @@ library(ggfortify)
 # ## ONLY NEED TO RUN ONCE AND THEN CAN LOAD COMPILED CSV IN LINE BELOW (COMMENT THE REST OUT)
 # # compile AVIRIS scenes to one common file
 # # Load first file and add to AVIRIS_lake that will eventually contain all AVIRIS lake data
-# flist = dir("Data/AVIRIS/Vnorm")
-# aviris <- read.csv(file.path("Data/AVIRIS/Vnorm",flist[1]))
-# date = flist[1]
-# AVIRIS_lake <- cbind(date,aviris)
-# for(i in 2:length(flist)){
-#   aviris <- read.csv(file.path("Data/AVIRIS/Vnorm",flist[i]))
-#   date = flist[i]
-#   temp <- cbind(date,aviris)
-#   AVIRIS_lake <- plyr::rbind.fill(AVIRIS_lake,temp)
-# }
-# AVIRIS_lake <- AVIRIS_lake %>% mutate(date = substr(date,8,15))
-# # export summary file
-# write.csv(AVIRIS_lake,'Data/AVIRIS/vnorm_compiled/AVIRIS_lake_compiled.csv')
+flist = dir("Data/AVIRIS/Vnorm")
+aviris <- read.csv(file.path("Data/AVIRIS/Vnorm",flist[1]))
+date = flist[1]
+AVIRIS_lake <- cbind(date,aviris)
+for(i in 2:length(flist)){
+  aviris <- read.csv(file.path("Data/AVIRIS/Vnorm",flist[i]))
+  date = flist[i]
+  temp <- cbind(date,aviris)
+  AVIRIS_lake <- plyr::rbind.fill(AVIRIS_lake,temp)
+}
+AVIRIS_lake <- AVIRIS_lake %>% mutate(date = substr(date,8,15))
+# export summary file
+write.csv(AVIRIS_lake,'Data/AVIRIS/vnorm_compiled/AVIRIS_lake_compiled.csv')
 
 AVIRIS_lake <- read.csv('Data/AVIRIS/vnorm_compiled/AVIRIS_lake_compiled.csv')
+
+# SET SEED FOR RANDOM SAMPLING
+# otherwise this result will change every time
+set.seed(1234)
 
 AVIRIS_lake_sub<-AVIRIS_lake %>% 
   group_by(date) %>%
   drop_na() %>%
   slice_sample(prop=0.10) %>%
-  select(c(1,21:101)) # Select columns for visible spectrum (450-850nm)
+  select(c(1,3,21:101)) # Select columns for visible spectrum (450-850nm)
 
 # run pca
-AVIRIS<-AVIRIS_lake_sub %>% ungroup(date) %>% select(-date)
+AVIRIS<-AVIRIS_lake_sub %>% ungroup(date) %>% select(-c(date, X))
 
 AVIRIS_pca<-princomp(AVIRIS,cor=TRUE)
 
 summary(AVIRIS_pca) #prints loadings
 screeplot(AVIRIS_pca)#shows variance represented by each component
 
+#save PCA output
+pca_AVNG_scores = AVIRIS_pca$scores
+rownames(pca_AVNG_scores) = AVIRIS_lake_sub$X 
+pca_AVNG_ldgs = AVIRIS_pca$loadings
+saveRDS(pca_AVNG_ldgs, "Outputs/PCA_outputs/AVIRIS/pca_AVNG_ldgs.rds")
+saveRDS(pca_AVNG_scores, "Outputs/PCA_outputs/AVIRIS/pca_AVNG_scores.rds")
+write_csv(AVIRIS_lake[,c(1,3,4,5)], "Outputs/PCA_outputs/AVIRIS/AVNG_geo_info.csv")
 # get variances represented by each PC
 variances <- as_tibble(AVIRIS_pca$sdev^2, rownames = "component") %>% #convert SD to variance
   mutate(proportion = value/sum(value) #proportion of total variance represented
