@@ -46,7 +46,7 @@ png("Outputs/PCA_outputs/AVIRIS/top_3_PCs_20160822.png")
 plotRGB(new_ras, stretch = "lin", main = "Top 3 PCA components for 2016-08-22")
 dev.off()
 # save final scores
-write_csv(new_df, "Outputs/PCA_outputs/AVIRIS/scores_20160822")
+write_csv(new_df, "Outputs/PCA_outputs/AVIRIS/scores_20160822.csv")
 # second image
 img_0831 = read_csv("Data/AVIRIS/Vnorm/AVIRIS_20160831_250mclipped_30mdownsampled_vnormalized.csv") %>% 
   dplyr::select(x,y,20:100)
@@ -64,7 +64,7 @@ png("Outputs/PCA_outputs/AVIRIS/top_3_PCs_20160831.png")
 plotRGB(new_ras, stretch = "lin", main = "Top 3 PCA components for 2016-08-31")
 dev.off()
 # save final scores
-write_csv(new_df, "Outputs/PCA_outputs/AVIRIS/scores_20160822")
+write_csv(new_df, "Outputs/PCA_outputs/AVIRIS/scores_20160822.csv")
 
 # PRISMA ####
 flist = dir("Data/PRISMA/Vnorm/lake")
