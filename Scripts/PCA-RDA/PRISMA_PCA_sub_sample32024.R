@@ -46,16 +46,17 @@ PRISMA_lake <- read.csv('Data/PRISMA/Vnorm/PRISMA_lake_compiled.csv')
 
 
 ##### Subsample
+set.seed(1234) # to make runs consistent
 # subsample 10% PRISMA data because 
 # Critical Scale of Variability ~100m
 # PRISMA pixels are 30m, so 3x3 grid of PRISMA pixels is ~100x100m 
 # Which means we subsample 1/9 = 11.1% so 10% is fine
 prsma_sub<-PRISMA_lake %>% select(-Rrs_765) %>% #drop 765 as over half are missing
-  group_by(date) %>% select(c(Rrs_453:Rrs_849)) %>%
+  group_by(date) %>% select("X" = X.2, c(Rrs_453:Rrs_849)) %>%
   drop_na() %>%
 slice_sample(prop=0.10)
 # run pca
-prsm_s2<-prsma_sub %>% ungroup(date) %>% select(-date)
+prsm_s2<-prsma_sub %>% ungroup(date) %>% select(-date, -X)
 
 pca_prsm<-princomp(prsm_s2,cor=TRUE)
   
@@ -63,6 +64,16 @@ summary(pca_prsm)
 biplot(pca_prsm)
 
 screeplot(pca_prsm)#shows variance represented by each component
+
+#save PCA output
+pca_prsm_scores = pca_prsm$scores
+rownames(pca_prsm_scores) = prsma_sub$X
+pca_prsm_ldgs = pca_prsm$loadings
+saveRDS(pca_prsm_ldgs, "Outputs/PCA_outputs/PRISMA/pca_prsm_ldgs.rds")
+saveRDS(pca_prsm_scores, "Outputs/PCA_outputs/PRISMA/pca_prsm_scores.rds")
+write_csv(PRISMA_lake[,c(2,4,3,1,5:8)],"Outputs/PCA_outputs/PRISMA/prisma_geo.csv" )
+
+
 #improve biplot
 library(ggfortify)
 peu<-autoplot(pca_prsm,loadings=TRUE,loadings.label=T,loadings.label.repel=T, loadings.colour="black",loadings.label.colour="black")+
