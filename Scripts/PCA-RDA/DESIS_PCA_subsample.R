@@ -19,9 +19,9 @@ library(plyr)
 #Note: binned to 10nm 
 # Which means we subsample 1/9 = 11.1% so 10% is fine
 desis_binned<-read.csv('Data/DESIS/Vnorm_output/DESIS_bin10_lake.csv')
-
+set.seed(1234) #for replicability
 desis_sub<-desis_binned %>% select(-c('405','446','457','823','813','723','692')) %>% #drop because of NAs: 405,457, 823, 813,723,692
-  group_by(date) %>% select(c('467':'875')) %>%
+  group_by(date) %>% select(X,c('467':'875')) %>%
   drop_na() %>%
   slice_sample(prop=0.10)
 #convert to rhow from rrs
@@ -36,10 +36,14 @@ summary(pca_dss) #prints loadings
 biplot(pca_dss)
 
 #save PCA output
-pca_dss_scores = pca_prsm$scores
+pca_dss_scores = pca_dss$scores
+rownames(pca_dss_scores) = desis_subW$X
 pca_dss_ldgs = pca_dss$loadings
-saveRDS(pca_dss_ldgs, "Outputs/PCA_outputs/PRISMA/pca_dss_ldgs.rds")
-saveRDS(pca_dss_scores, "Outputs/PCA_outputs/PRISMA/pca_dss_scores.rds")
+saveRDS(pca_dss_ldgs, "Outputs/PCA_outputs/DESIS/pca_dss_ldgs.rds")
+saveRDS(pca_dss_scores, "Outputs/PCA_outputs/DESIS/pca_dss_scores.rds")
+
+write_csv(desis_binned[,c(1,56,57:59)],"Outputs/PCA_outputs/DESIS/desis_geo.csv" )
+
 
 screeplot(pca_dss)#shows variance represented by each component
 #improve biplot
