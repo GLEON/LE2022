@@ -45,3 +45,93 @@ ggplot(algal_example,
   geom_point(alpha = 0.4)
 
 # Looks like Mean.reflectance is the best one to use
+
+############################################################################################################
+# SLS
+# I think Normalized.mean.reflectance is easier to compare - you can see the peaks and troughs easiest
+
+# Plot averages
+algal_data_master %>% 
+  filter(!is.na(Morphological.ID)) %>%
+  group_by(Wavelength..nm., Morphological.ID) %>%
+  mutate(average.ref = mean(Normalized.mean.reflectance)) %>%
+  ggplot(aes(x = Wavelength..nm., y = average.ref, col = Morphological.ID)) +
+  geom_line() +
+  facet_wrap(~Morphological.ID)
+
+# Group by Division
+# **Anna let me know if there are better groupings that make more sense for these phytoplankton
+algal_data_master <- algal_data_master %>%
+  mutate(Division = case_when(
+    Morphological.ID == "Cymbella" |
+      Morphological.ID == "Epithemia" |
+      Morphological.ID == "Gomphoneis herculeana" ~ "Bacillariophyta",
+    Morphological.ID == "Closterium" |
+      Morphological.ID == "Mougeotia" |
+      Morphological.ID == "Spirogyra" |
+      Morphological.ID == "Zygnema" ~ "Charophyta",
+    Morphological.ID == "Botryococcus" |
+      Morphological.ID == "Cladophora" |
+      Morphological.ID == "Draparnaldia" |
+      Morphological.ID == "Green algae" |
+      Morphological.ID == "Microspora" |
+      Morphological.ID == "Oedogonium" |
+      Morphological.ID == "Prasiola" |
+      Morphological.ID == "Ulothrix" ~ "Chlorophyta",
+    Morphological.ID == "Tribonema" ~ "Chromophyta",
+    Morphological.ID == "Aphanizomenon" |
+      Morphological.ID == "Dolichospermum" |
+      Morphological.ID == "Gloeotrichia" |
+      Morphological.ID == "Microcystis" |
+      Morphological.ID == "Nostoc" |
+      Morphological.ID == "Nostoc Spongiforme" |
+      Morphological.ID == "Oscillatoria" |
+      Morphological.ID == "Phormidium" |
+      Morphological.ID == "Pseudoanabanea" ~ "Cyanobacteria"))
+
+colorBlindGrey8   <- c("#999999", "#E69F00", "#56B4E9", "#009E73", 
+                       "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#661100")
+
+# Plot Divisions
+algal_data_master %>% 
+  filter(!is.na(Morphological.ID)) %>%
+  filter(Division == "Cyanobacteria") %>%
+  # filter(Division == "Bacillariophyta") %>%
+  # filter(Division == "Chlorophyta") %>%
+  group_by(Wavelength..nm., Morphological.ID) %>%
+  mutate(average.ref = mean(Normalized.mean.reflectance)) %>%
+  ggplot(aes(x = Wavelength..nm., y = average.ref, col = Morphological.ID)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = colorBlindGrey8) +
+  facet_wrap(~Division) +
+  xlim(c(450,700)) +
+  # ylim(c(0.05,0.8)) +
+  theme_bw() +
+  xlab("Wavelength (nm)") +
+  ylab("Reflectance") 
+  
+
+# ALSO look at water spectra to see difference with algae spectra
+# not sure what the difference between water and algal spectra from metadata but 
+# spectra are different
+# algal spectra seem more useful
+water_files <- list.files(path = "Data/spectral_libraries/Hyperspectralpr/HABs2022_DataTables_Water", 
+                          pattern = ".csv", full.names = TRUE)
+water_data <- water_files %>%
+  setNames(nm = .) %>% # getting the file names from the list of files
+  map_df(~read.csv(.x, sep = ","), .id = "file_name") %>%
+  mutate(Spectrum_ID_Water = ROI) # facilitate joining with the mastersheet
+water_data_master <- left_join(water_data, mastersheet, by = "Spectrum_ID_Water")
+
+ggplot(water_data_master,
+       aes(x = Wavelength..nm., y = Mean.reflectance, col = Morphological.ID)) +
+  geom_point(alpha = 0.4) +
+  facet_wrap(~Morphological.ID)
+
+water_data_master %>% 
+  filter(!is.na(Morphological.ID)) %>%
+  group_by(Wavelength..nm., Morphological.ID) %>%
+  mutate(average.ref = mean(Mean.reflectance)) %>%
+  ggplot(aes(x = Wavelength..nm., y = average.ref, col = Morphological.ID)) +
+  geom_line() +
+  facet_wrap(~Morphological.ID)
