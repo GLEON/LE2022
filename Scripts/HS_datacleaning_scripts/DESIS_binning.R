@@ -58,7 +58,7 @@ byapply <- function(x, by, fun, ...)
 t2<-t %>% select(-X) # not averaged
 
 desis_binned <- cbind(byapply(t2[-(1:4)], 4, rowMeans), t2[1:4])
-
+# labels -file path for all users: Data/DESIS/..csv
 #buoy
 dbin<-read.csv('Data/DESIS/Vnorm_output/DESIS_bin_names.csv')
 #lake
