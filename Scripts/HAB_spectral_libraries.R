@@ -135,3 +135,29 @@ water_data_master %>%
   ggplot(aes(x = Wavelength..nm., y = average.ref, col = Morphological.ID)) +
   geom_line() +
   facet_wrap(~Morphological.ID)
+
+############################################################################################################
+# AGS
+
+# I agree that the Normalized.mean.reflectance is best for visualizing the peaks and valleys of the spectra, so let's proceed using that. 
+# I agree that the Water spectra don't seem as informative as the Algal spectra.
+# I think the algal groupings make sense!
+
+# Quick visualization of how the spectra generally differ between and among the groupings we chose
+algal_data_master %>% 
+  filter(!is.na(Morphological.ID)) %>%
+  group_by(Wavelength..nm., Morphological.ID) %>%
+  mutate(average.ref = mean(Normalized.mean.reflectance)) %>%
+  ggplot(aes(x = Wavelength..nm., y = average.ref, col = Morphological.ID)) +
+  geom_line(size = 1) +
+  facet_wrap(~Division) +
+  xlim(c(450,700)) +
+  # ylim(c(0.05,0.8)) +
+  theme_bw() +
+  xlab("Wavelength (nm)") +
+  ylab("Reflectance") 
+
+# Some spectral patterns I notice right away:
+# Cyanobacteria and Bacillariophyta have that extra peak around 650 nm, others don't
+# Chlorophyta, Charophyta, and Chromophyta have a steeper increase from 450-550 nm compared to Cyanobacteria and Baillariophyta
+# All have a valley around 675 nm
