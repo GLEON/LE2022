@@ -4,11 +4,11 @@ library(sf)
 #clip new PRISMA files to buoy
 
 # set up files
-source_dir = "Data/PRISMA/lake"
-flist = dir(source_dir, pattern = "cloudless", full.names = T)
+source_dir = "Data/PRISMA/L2W"
+flist = dir(source_dir, pattern = ".csv", full.names = T)
 
 # read shapefile
-shape = sf::read_sf("Data/Buoy_100m_shp/Buoy_100m.shp")
+shape = sf::read_sf("Data/Shapefiles/Buoy_100m/Buoy_100m.shp")
 #plot(shape) 
 
 for(i in 1:8){
@@ -19,8 +19,10 @@ for(i in 1:8){
   st_crs(data) = st_crs(shape) #EPSG:4326
   
   #extract filename and date
-  img_name = (str_remove(flist[i], source_dir)) %>% str_remove(".csv") %>% str_remove("/cloudless_")
-  tt = lubridate::as_date(img_name)
+  img_name = (str_remove(flist[i], source_dir)) %>% str_remove("_Mendota.csv")
+  t = (img_name %>% str_split("_"))[[1]][2:4]
+  tt = paste(t[1], t[2], t[3]) %>% 
+    lubridate::as_date(format = "%Y %m %d")
   # clip SPDF to shapefile
   cutout = st_intersection(data, shape)
   #plot(cutout)
@@ -29,7 +31,7 @@ for(i in 1:8){
   result = cutout %>% 
     mutate(date = tt, .before = everything())
   # write file
-  write_csv(result, paste0("Data/PRISMA/buoy/PRISMA_", img_name, "_buoy.csv"))
+  write_csv(result, paste0("Data/PRISMA/L2W_clipped_to_buoy/", img_name, "_buoy.csv"))
 }
 
 
