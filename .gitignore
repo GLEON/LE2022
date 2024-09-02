@@ -24,3 +24,4 @@ Data/AVIRIS/vnorm
 Data/AVIRIS/vnorm_compiled
 Scripts/ACOLITE
 *.DS_Store
+*.png
