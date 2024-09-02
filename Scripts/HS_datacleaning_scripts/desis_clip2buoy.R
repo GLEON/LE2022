@@ -6,7 +6,7 @@ source_dir = "Data/DESIS/L2W_destriped/"
 flist = dir(source_dir, pattern = ".csv", full.names = T)
 
 # read shapefile
-shape = sf::read_sf("Data/Buoy_100m_shp/Buoy_100m.shp")
+shape = sf::read_sf("Data/Shapefiles/Buoy_100m/Buoy_100m.shp")
 #plot(shape) 
 
 for(i in 1:length(flist)){
@@ -17,7 +17,7 @@ data = read_csv(flist[i]) %>%
 st_crs(data) = st_crs(shape) #EPSG:4326
 
 #extract filename and date
-img_name = (str_remove(flist[i], source_dir)) %>% str_remove("_Mendota_clean.csv")
+img_name = (str_remove(flist[i], source_dir)) %>% str_remove("_Mendota.csv")
 t = (img_name %>% str_split("_"))[[1]][4:6]
 tt = paste(t[1], t[2], t[3]) %>% 
   lubridate::as_date(format = "%Y %m %d")
