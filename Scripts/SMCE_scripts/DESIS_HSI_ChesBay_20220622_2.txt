@@ -1,0 +1,52 @@
+## ACOLITE custom settings for DESIS_HSI
+#   NOTE: Anything not set here will use DESIS_HSI.txt default settings
+#
+# Changes: L2W products changed for testing
+
+# To finite values for speed
+slicing=True
+
+desis_mask_ql=True
+
+## atmospheric correction models
+aerosol_correction=dark_spectrum
+
+min_tgas_aot=0.95
+
+## dark spectrum fitting options
+# used to be called dsf_path_reflectance=fixed, now:
+dsf_aot_estimate=fixed
+dsf_write_aot_550=True
+# This might be tweaked again. Avoid first 7 bands (Alonso 2019, pg. 30 & Table 11)
+dsf_wave_range=400,1000
+dsf_spectrum_option=percentile
+dsf_percentile=5
+dsf_residual_glint_correction=True
+dsf_residual_glint_correction_method=alternative
+dsf_residual_glint_correction_wave_range=930,960
+# glint_mask_rhos_band=945 wrong name in the manual....
+glint_mask_rhos_wave=945
+glint_mask_rhos_threshold=0.025
+
+dsf_filter_toa=True
+
+## L2W products
+#l2w_mask=False
+l2w_mask_wave=865
+l2w_mask_threshold=0.05
+l2w_mask_negative_rhow=False
+l2w_mask_negative_wave_range=440,680
+# changed cirrus mask to true but it did not work
+l2w_mask_cirrus=False
+#spm is for turbidity
+#l2w_parameters=spm_nechad2010_645,Rrs_*
+l2w_parameters = Rrs_*
+
+#outputs
+runid = 'test_cloudmask'
+rgb_rhot = False
+rgb_rhow = True
+#map_l2w = True
+#map_limit = (S,W,N,E)N: 43.14600 S: 43.0766 E: -89.36730 W: -89.48370
+map_limit = (43.0766, -89.48370, 43.14600, -89.36730)
+#l2w_export_geotiff = True
