@@ -117,7 +117,7 @@ DSS_geo = read_csv("Outputs/PCA_outputs/DESIS/desis_geo.csv")
 # Plot original (averaged) scores
 group_df = DSS_geo %>% 
   right_join(as_tibble(group_scores[,1:10], rownames= "X") %>% mutate(X = as.numeric(X))) %>% 
-  select(-c(X, pixel_ct)) #%>% 
+  dplyr::select(-c(X, pixel_ct)) #%>% 
   #dplyr::mutate(x = rank(lon, ties.method= "random"), y = rank(lat, ties.method = "random"), .before = everything())
 # group_ras = rasterFromXYZ(group_df[1:10,-c(3:5)])
 
@@ -284,7 +284,7 @@ for(i in 2:10){
 ## DESIS ####
 
 dss_scores %>% 
-  select(1,4:10) %>% 
+  dplyr::select(1,4:10) %>% 
   pivot_longer(2:8) %>% 
   mutate(date = as_date(date),
          name = str_replace(name, fixed("Comp."), "PC ")) %>% 
@@ -440,7 +440,8 @@ dss_scores_buoy %>%
        title = "DESIS - buoy")
 
 ggsave("Outputs/PCA_outputs/DESIS/timeseries_boxplots_buoy.png", width = 6, height = 8, units = "in")
-
+write_csv(pris_scores_buoy, "Outputs/PCA_outputs/pris_scores_buoy.csv")
+write_csv(dss_scores_buoy, "Outputs/PCA_outputs/dss_scores_buoy.csv")
 ## AVIRIS ####
 
 a_buoy = read_csv("Data/AVIRIS/AVIRIS_20160822_buoyclipped_30mdownsampled.csv") %>% 
