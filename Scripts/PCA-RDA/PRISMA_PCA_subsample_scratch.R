@@ -8,7 +8,7 @@ library(plyr)
 
 # Load list of scenes
 
-flist = dir("Data/PRISMA/lake/vnorm")
+flist = dir("Data/PRISMA/L2W_vnorm/lake")
 #Initialize storage for variances and components
 vars = tibble()
 lds = tibble()
@@ -18,20 +18,20 @@ lds = tibble()
 # PRISMA lake clipped data
 
 # #Load first file and add to PRISMA_lake that will eventually contain all PRISMA lake data
-# prisma <- read.csv(file.path("Data/PRISMA/lake/vnorm",flist[1]))
-# date = flist[1]
-# PRISMA_lake <- cbind(date,prisma)
-# for(i in 2:length(flist)){
-#   prisma <- read.csv(file.path("Data/PRISMA/lake/vnorm",flist[i]))
-#   date = flist[i]
-#   temp <- cbind(date,prisma)
-#   PRISMA_lake <- rbind.fill(PRISMA_lake,temp)
-# }
+prisma <- read.csv(file.path("Data/PRISMA/L2W_vnorm/lake",flist[1]))
+date = flist[1]
+PRISMA_lake <- cbind(date,prisma)
+for(i in 2:length(flist)){
+  prisma <- read.csv(file.path("Data/PRISMA/L2W_vnorm/lake",flist[i]))
+  date = flist[i]
+  temp <- cbind(date,prisma)
+  PRISMA_lake <- rbind.fill(PRISMA_lake,temp)
+}
 # 
-# PRISMA_lake <- PRISMA_lake %>%
-#   mutate(date = substr(date,11,20))
-# 
-# #export summary file
+PRISMA_lake <- PRISMA_lake %>%
+  mutate(date = substr(date,8,17))
+
+#export summary file
 # write.csv(PRISMA_lake,'Data/PRISMA/PRISMA_lake_compiled.csv')
 
 ## Load compiled csv

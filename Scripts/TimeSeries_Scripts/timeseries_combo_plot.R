@@ -70,3 +70,4 @@ ggplot(loadings_all)+
         strip.background = element_blank(),
         strip.text = element_text(face = "bold"),
         legend.key.width = unit(1, "cm"))
+ggsave("Figures/PC_loadings.png")

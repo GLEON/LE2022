@@ -13,7 +13,7 @@ library(ade4)
 library(plyr)
 # Load list of scenes
 
-flist = dir("Data/PRISMA/Vnorm/lake")
+flist = dir("Data/PRISMA/L2W_vnorm/lake")
 #Initialize storage for variances and components
 vars = tibble()
 lds = tibble()
@@ -21,22 +21,22 @@ lds = tibble()
 ## ONLY NEED TO RUN ONCE AND THEN CAN LOAD COMPILED CSV IN LINE BELOW (COMMENT THE REST OUT)
 # compile PRISMA scenes to one common file
 # PRISMA lake clipped data
-
-# #Load first file and add to PRISMA_lake that will eventually contain all PRISMA lake data
-prisma <- read.csv(file.path("Data/PRISMA/Vnorm/lake",flist[1]))
+# 
+# # #Load first file and add to PRISMA_lake that will eventually contain all PRISMA lake data
+prisma <- read.csv(file.path("Data/PRISMA/L2W_vnorm/lake",flist[1]))
  date = flist[1]
 PRISMA_lake <- cbind(date,prisma)
  for(i in 2:length(flist)){
-   prisma <- read.csv(file.path("Data/PRISMA/Vnorm/lake",flist[i]))
+   prisma <- read.csv(file.path("Data/PRISMA/L2W_vnorm/lake",flist[i]))
    date = flist[i]
   temp <- cbind(date,prisma)
   PRISMA_lake <- plyr::rbind.fill(PRISMA_lake,temp)
  }
-# 
+#
  PRISMA_lake <- PRISMA_lake %>% mutate(date = substr(date,8,17))
-# 
-# #export summary file
-write.csv(PRISMA_lake,'Data/PRISMA/Vnorm/PRISMA_lake_compiled.csv')
+#
+# # #export summary file
+# write.csv(PRISMA_lake,'Data/PRISMA/Vnorm/PRISMA_lake_compiled.csv')
 
 ## Load compiled csv
 # MAKE SURE YOU PULL PRISMA_lake_compiled off Google Drive: 
@@ -51,8 +51,11 @@ set.seed(1234) # to make runs consistent
 # Critical Scale of Variability ~100m
 # PRISMA pixels are 30m, so 3x3 grid of PRISMA pixels is ~100x100m 
 # Which means we subsample 1/9 = 11.1% so 10% is fine
-prsma_sub<-PRISMA_lake %>% select(-Rrs_765) %>% #drop 765 as over half are missing
-  group_by(date) %>% select("X" = X.2, c(Rrs_453:Rrs_849)) %>%
+prsma_sub<-PRISMA_lake %>%
+  rownames_to_column("X") %>% 
+  dplyr::select(-Rrs_765) %>% #drop 765 as over half are missing
+  group_by(date) %>% 
+  dplyr::select("X", c(Rrs_453:Rrs_849)) %>%
   drop_na() %>%
 slice_sample(prop=0.10)
 # run pca
@@ -71,8 +74,8 @@ rownames(pca_prsm_scores) = prsma_sub$X
 pca_prsm_ldgs = pca_prsm$loadings
 saveRDS(pca_prsm_ldgs, "Outputs/PCA_outputs/PRISMA/pca_prsm_ldgs.rds")
 saveRDS(pca_prsm_scores, "Outputs/PCA_outputs/PRISMA/pca_prsm_scores.rds")
-write_csv(PRISMA_lake[,c(2,4,3,1,5:8)],"Outputs/PCA_outputs/PRISMA/prisma_geo.csv" )
-
+# write_csv(PRISMA_lake[,c(2,4,3,1,5:8)],"Outputs/PCA_outputs/PRISMA/prisma_geo.csv" )
+write_csv(rownames_to_column(PRISMA_lake, "X")[,c(1,2,158,159,162)],"Outputs/PCA_outputs/PRISMA/prisma_geo.csv")
 
 #improve biplot
 library(ggfortify)
@@ -115,8 +118,8 @@ loadings %>% filter(name %in%c("comp_1","comp_2","comp_3","comp_4","comp_5")) %>
     labs(x = "Wavelength", y = "Loading")
 
 # save information from this image -NOT WORKING
-  vars = bind_rows(vars, variances)
-  lds = bind_rows(lds, loadings)
+  # vars = bind_rows(vars, variances)
+  # lds = bind_rows(lds, loadings)
 
 
 # save information to files

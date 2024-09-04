@@ -67,7 +67,7 @@ dev.off()
 write_csv(new_df, "Outputs/PCA_outputs/AVIRIS/scores_20160831.csv")
 
 # PRISMA ####
-flist = dir("Data/PRISMA/Vnorm/lake")
+flist = dir("Data/PRISMA/L2W_vnorm/lake")
 group_scores = readRDS("Outputs/PCA_outputs/PRISMA/pca_prsm_scores.rds")
 PRS_ldgs <- readRDS("Outputs/PCA_outputs/PRISMA/pca_prsm_ldgs.rds") # dim 44*44
 PRS_geo = read_csv("Outputs/PCA_outputs/PRISMA/prisma_geo.csv")
@@ -76,9 +76,9 @@ PRS_geo = read_csv("Outputs/PCA_outputs/PRISMA/prisma_geo.csv")
 # Plot original (averaged) scores
 group_df = PRS_geo %>% 
   right_join(as_tibble(group_scores[,1:10], rownames= "X") %>% mutate(X = as.numeric(X))) %>% 
-  dplyr::select(-c(date, X, X.1, X.2))
+  dplyr::select(-c(date, X))
 
-group_ras = rasterFromXYZ(group_df[,c(1:2,5:14)])
+group_ras = rasterFromXYZ(group_df[,c(1:2,4:13)])
 # png("Outputs/PCA_outputs/PRISMA/top_3_PCs_average.png")
 # plotRGB(group_ras, stretch = "lin", main = "Top 3 PCA components for averaged images")
 # dev.off()
@@ -86,17 +86,18 @@ group_ras = rasterFromXYZ(group_df[,c(1:2,5:14)])
 for(file in flist){
   datestr = substr(file, 8,17)
   # Read in individual images
-  img = read_csv(paste0("Data/PRISMA/Vnorm/lake/",file)) %>% 
-    dplyr::select("X"="...1", Rrs_453:Rrs_849)
+  img = read_csv(paste0("Data/PRISMA/L2W_vnorm/lake/",file)) %>% 
+    dplyr::select(geometry, Rrs_453:Rrs_849)
   if("Rrs_765" %in% names(img)){img = dplyr::select(img, -Rrs_765)}
   img_matrix = as.matrix(img[,-1]) #dim 34441 * 44
   NewScores = img_matrix %*% PRS_ldgs
-  rownames(NewScores) = img$X
+  rownames(NewScores) = img$geometry
   
   new_df = PRS_geo %>% 
     filter(date == datestr) %>%  
-    right_join(as_tibble(NewScores, rownames="X.1") %>% mutate(X.1 = as.numeric(X.1))) %>% 
-    dplyr::select(5,6,9:18)
+    right_join(as_tibble(NewScores, rownames="geometry")) %>% # mutate(X = as.numeric(X))) %>% 
+    column_to_rownames("X") %>% 
+    dplyr::select(2,3,5:14)
 
   new_ras = rasterFromXYZ(new_df)  
   png(paste0("Outputs/PCA_outputs/PRISMA/top_3_PCs_",datestr,".png"))
@@ -108,7 +109,7 @@ for(file in flist){
 }
 
 # DESIS ####
-flist = dir("Data/DESIS/Vnorm_output/Vnorm (lake)")
+flist = dir("Data/DESIS/Vnorm_output/Vnorm (lake)", pattern = "csv")
 group_scores = readRDS("Outputs/PCA_outputs/DESIS/pca_dss_scores.rds")
 DSS_ldgs <- readRDS("Outputs/PCA_outputs/DESIS/pca_dss_ldgs.rds") # dim 36*36
 DSS_geo = read_csv("Outputs/PCA_outputs/DESIS/desis_geo.csv")
@@ -117,22 +118,26 @@ DSS_geo = read_csv("Outputs/PCA_outputs/DESIS/desis_geo.csv")
 # Plot original (averaged) scores
 group_df = DSS_geo %>% 
   right_join(as_tibble(group_scores[,1:10], rownames= "X") %>% mutate(X = as.numeric(X))) %>% 
-  dplyr::select(-c(X, pixel_ct)) #%>% 
+  dplyr::select(-X) #%>% 
   #dplyr::mutate(x = rank(lon, ties.method= "random"), y = rank(lat, ties.method = "random"), .before = everything())
-# group_ras = rasterFromXYZ(group_df[1:10,-c(3:5)])
-
-coordinates(group_df)=~lon+lat
-group_ras = raster(group_df)
-crs(group_ras) = CRS("+init=epsg:4326")
-group_ras = projectRaster(group_ras, to = "")
-values(group_ras) = as.matrix(as.data.frame(group_df))
-
+group_ras = rasterFromXYZ(group_df[,-1])
 png("Outputs/PCA_outputs/DESIS/top_3_PCs_average.png")
 plotRGB(group_ras, stretch = "lin", main = "Top 3 PCA components for averaged images")
 dev.off()
 
-desis_all = read_csv("Data/DESIS/Vnorm_output/DESIS_bin10_lake.csv") %>% 
-  select(-c('405','446','457','823','813','723','692')) %>%
+# coordinates(group_df)=~lon+lat
+# coordinates(group_df) = c("x","y")
+# group_ras = raster(group_df)
+# crs(group_ras) = CRS("+init=epsg:4326")
+# group_ras = projectRaster(group_ras, to = "")
+# values(group_ras) = as.matrix(as.data.frame(group_df))[,-c(1:3)]
+# 
+# png("Outputs/PCA_outputs/DESIS/top_3_PCs_average.png")
+# plotRGB(group_ras, stretch = "lin", main = "Top 3 PCA components for averaged images")
+# dev.off()
+
+desis_all = read_csv("Data/DESIS/DESIS_bin10_lake.csv") %>% 
+  select(-c('405','446','457','823','723','692')) %>%
   #drop because of NAs: 405,457, 823, 813,723,692
   select('X' = `...1`, date,c('467':'875')) %>%
   mutate(across('467':'875', function(x) x * pi))
@@ -149,7 +154,7 @@ for(file in flist){
   new_df = DSS_geo %>% 
     filter(date == datestr) %>%  
     right_join(as_tibble(NewScores, rownames="X") %>% mutate(X = as.numeric(X))) %>% 
-    dplyr::select(-c("X", "pixel_ct"))
+    dplyr::select(-"X")
   
   # new_ras = rasterFromXYZ(new_df)
   # png(paste0("Outputs/PCA_outputs/PRISMA/top_3_PCs_",datestr,".png"))
@@ -252,25 +257,26 @@ for(fn in dlist){
   dss_scores = bind_rows(dss_scores, temp)
 }
 rm(temp)
-
+dss_scores = dss_scores %>% 
+  dplyr::rename("x"="x_corr", "y"="y_corr")
 # Plot component 1
 png("Outputs/PCA_outputs/DESIS/plots_of_PC1.png", height = 550, width = 550)
 ggplot(dss_scores)+
-  geom_point(aes(x=lon, y=lat, color= Comp.1), pch = ".")+
+  geom_point(aes(x=x, y=y, color= Comp.1), pch = ".")+
   scale_color_continuous(name="Score")+
   theme_bw()+theme(panel.grid = element_blank(), strip.text = element_text(face= "bold", size = "14"))+
-  facet_wrap(~date)+
+  facet_wrap(~date, scales = "free")+
   labs(x="", y="", title = "PC 1 for DESIS images")
 dev.off()
 
 for(i in 2:10){
   tmp = dss_scores %>% 
-    dplyr::select(date,lat,lon,comp=i+3)
-  p = ggplot(tmp, aes(x=lon, y=lat, color= comp))+
+    dplyr::select(date,x,y,comp=i+3)
+  p = ggplot(tmp, aes(x=x, y=y, color= comp))+
     geom_point(pch = ".")+
     scale_color_continuous(name = "Score")+
     theme_bw()+theme(panel.grid = element_blank(), strip.text = element_text(face= "bold", size = "14"))+
-    facet_wrap(~date)+
+    facet_wrap(~date, scales = "free")+
     labs(x="", y="", title = paste("PC", i, "for DESIS images"))
   png(paste0("Outputs/PCA_outputs/DESIS/plots_of_PC",i,".png"), height = 550, width = 550)
   print(p)
@@ -404,6 +410,7 @@ pris_scores_buoy %>%
   ggplot()+
   geom_boxplot(aes(x = factor(date), y = value), outlier.alpha = 0)+
   geom_jitter(aes(x = factor(date), y = value), alpha = 0.2)+
+  scale_y_continuous(limits = c(-2,2))+
   facet_wrap(~name, scales = "free_y", ncol = 1)+
   theme(panel.grid = element_blank(), panel.background = element_rect(fill = "white", color = "black"))+
   labs(x = "Image date", y = "Component score",
@@ -413,15 +420,18 @@ ggsave("Outputs/PCA_outputs/PRISMA/timeseries_boxplots_buoy.png", width = 6, hei
 ## DESIS ####
 
 d_buoy = read_csv("Data/DESIS/Vnorm_output/Vnorm (buoy clipped)/DESIS_HSI_002_2020_06_02_20_11_33_buoy_vnormalized.csv") %>% 
-  mutate(ll = paste(round(lon, 3), round(lat,3)))
+  # mutate(ll = paste(round(lon, 3), round(lat,3)))
+  mutate(xy = paste(x,y))
 
 dss_scores_buoy = dss_scores %>% 
-  mutate(ll = paste(round(lon,3), round(lat,3))) %>% 
-  filter(ll %in% d_buoy$ll)
+  mutate(xy = paste(x,y)) %>% 
+  filter(xy %in% d_buoy$xy)
+  # mutate(ll = paste(round(lon,3), round(lat,3))) %>% 
+  # filter(ll %in% d_buoy$ll)
 
 #check 
 # ggplot(dss_scores_buoy)+
-#   geom_point(aes(x=lon, y=lat, fill= Comp.1))+
+#   geom_point(aes(x=x, y=y, fill= Comp.1))+
 #   scale_fill_continuous(name="Score")+
 #   theme_bw()+theme(panel.grid = element_blank(), strip.text = element_text(face= "bold", size = "14"))+
 #   facet_wrap(~date)

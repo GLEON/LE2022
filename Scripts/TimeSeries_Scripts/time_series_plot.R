@@ -39,7 +39,7 @@ landsat <- landsat %>%
 buoy <- read_csv('Data/Buoy/daily_buoy.csv')
 buoy <- buoy %>%
   mutate(doy = yday(sampledate)) %>%
-  rename("year" = year4)
+  dplyr::rename("year" = year4)
 # There are two really high phycocyanin outliers that we want to remove (they're above 20000 RFU) so we can better visualize the trends on this figure. We are going to replace those values with NA.
 buoy$avg_phyco_rfu[buoy$avg_phyco_rfu >= 20000] <- NA
 
