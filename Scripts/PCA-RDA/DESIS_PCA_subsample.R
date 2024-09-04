@@ -18,17 +18,46 @@ library(plyr)
 # DESIS pixels are 30m, so 3x3 grid of DESIS pixels is ~100x100m 
 #Note: binned to 10nm 
 # Which means we subsample 1/9 = 11.1% so 10% is fine
-desis_binned<-read.csv('Data/DESIS/Vnorm_output/DESIS_bin10_lake.csv')
+desis_binned<-read.csv('Data/DESIS/DESIS_bin10_lake.csv') #CO updated with Lara's new file 2 sep 2024: https://drive.google.com/drive/u/1/folders/14Q1EKsK6G4q8bq-kR5hJs5mvk2iG-VTG
 set.seed(1234) #for replicability
-desis_sub<-desis_binned %>% select(-c('405','446','457','823','813','723','692')) %>% #drop because of NAs: 405,457, 823, 813,723,692
-  group_by(date) %>% select(X,c('467':'875')) %>%
-  drop_na() %>%
-  slice_sample(prop=0.10)
+# desis_sub<-desis_binned %>% select(-c('405','446','457','823','813','723','692')) %>% #drop because of NAs: 405,457, 823, 813,723,692
+#   group_by(date) %>% select(X,c('467':'875')) %>%
+#   drop_na() %>%
+#   slice_sample(prop=0.10)
+
+## NEED to fix x,y values
+desis_mins = desis_binned %>% 
+  group_by(date) %>% 
+  dplyr::summarize(min_x = min(x),
+            min_y = min(y))
+
+desis_offsets = desis_mins %>% 
+  mutate(offset_x = min_x - desis_mins$min_x[desis_mins$date=='2020_06_02'],
+         offset_y = min_y - desis_mins$min_y[desis_mins$date=='2020_06_02']) %>% 
+  select(-c(min_x, min_y))
+
+desis_corrected = desis_binned %>% 
+  left_join(desis_offsets) %>% 
+  mutate(x_corr = x - offset_x,
+         y_corr = y - offset_y)
+
+ggplot(desis_corrected)+ geom_point(aes(x=x_corr, y=-y_corr, color=date))+
+  geom_point(d_buoy, mapping=aes(x=x, y=-y))
+
+#redo with new column names
+desis_sub = desis_binned %>% 
+  select(X, date, c('X467':'X875')) %>% 
+  select(-c('X823', 'X692', 'X723')) %>% 
+  group_by(date) %>% 
+  drop_na() %>% 
+  slice_sample(prop=0.10) %>% 
+  column_to_rownames('X')
+
 #convert to rhow from rrs
 desis_subW = desis_sub %>%
   mutate(across(where(is.numeric), function(x) x * pi))
 # run pca
-dss_sw<-desis_subW %>% ungroup(date) %>% select(-date)
+dss_sw<-desis_subW %>% ungroup() %>% select(-date)
 
 pca_dss<-princomp(dss_sw,cor=TRUE)
 
@@ -37,12 +66,12 @@ biplot(pca_dss)
 
 #save PCA output
 pca_dss_scores = pca_dss$scores
-rownames(pca_dss_scores) = desis_subW$X
+#rownames(pca_dss_scores) = desis_subW$X
 pca_dss_ldgs = pca_dss$loadings
 saveRDS(pca_dss_ldgs, "Outputs/PCA_outputs/DESIS/pca_dss_ldgs.rds")
 saveRDS(pca_dss_scores, "Outputs/PCA_outputs/DESIS/pca_dss_scores.rds")
 
-write_csv(desis_binned[,c(1,56,57:59)],"Outputs/PCA_outputs/DESIS/desis_geo.csv" )
+write_csv(desis_corrected[,c(1,56,62:63)],"Outputs/PCA_outputs/DESIS/desis_geo.csv" )
 
 
 screeplot(pca_dss)#shows variance represented by each component
@@ -75,7 +104,7 @@ loadings = pca_dss$loadings[,1:10] %>% #only keep the ones that have been retain
   as_tibble(rownames = "band") %>% 
   janitor::clean_names() %>%
   pivot_longer(cols = starts_with("comp")) %>% #this will cause an error if only retaining one PC - just comment out this line and fix it manually for that case
-  mutate(band = as.numeric(str_remove(band, "Rrs_"))) #format wavelengths for plotting
+  mutate(band = as.numeric(str_remove(band, "X"))) #format wavelengths for plotting
 #img_date = img_date) #tag with image date
 
 # plot loadings -try top 5  
@@ -87,8 +116,8 @@ ggplot(aes(x = band, y = value))+
   labs(x = "Wavelength", y = "Loading")
 
 # save information from this image -NOT WORKING
-vars = bind_rows(vars, variances)
-lds = bind_rows(lds, loadings)
+# vars = bind_rows(vars, variances)
+# lds = bind_rows(lds, loadings)
 
 
 # save information to files
