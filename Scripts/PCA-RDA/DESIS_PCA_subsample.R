@@ -75,6 +75,7 @@ write_csv(desis_corrected[,c(1,56,62:63)],"Outputs/PCA_outputs/DESIS/desis_geo.c
 
 
 screeplot(pca_dss)#shows variance represented by each component
+lines()
 #improve biplot
 library(ggfortify)
 peu<-autoplot(pca_dss,loadings=TRUE,loadings.label=T,loadings.label.repel=T, loadings.colour="black",loadings.label.colour="black")+
