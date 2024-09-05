@@ -8,6 +8,7 @@ Data/DESIS/L2W_raw_from_SMCE
 Data/DESIS/L2W_destriped
 Data/DESIS/L2W_clipped_to_buoy
 Data/DESIS/L2W_clipped_to_lake250m
+Data/DESIS/L2W_vnorm
 Data/DESIS/DESIS_scenes
 Data/DESIS/DESIS_bin10_lake.csv
 Data/DESIS/DESIS_bin10_buoy.csv
