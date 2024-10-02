@@ -146,6 +146,9 @@ pca_dss_scores = pca_dss$scores
 pca_dss_ldgs = pca_dss$loadings
 saveRDS(pca_dss_ldgs, "Outputs/PCA_outputs/DESIS/pca_dss_ldgs.rds")
 saveRDS(pca_dss_scores, "Outputs/PCA_outputs/DESIS/pca_dss_scores.rds")
+#geo
+write_csv(desis_corrected[,c(1,56,62:63)],"Outputs/PCA_outputs/DESIS/desis_geo.csv" )
+
 
 screeplot(pca_dss)#shows variance represented by each component
 #improve biplot
