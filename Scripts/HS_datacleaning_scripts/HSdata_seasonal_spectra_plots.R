@@ -111,7 +111,8 @@ p_Spring <-
   scale_color_manual(values="#73456D") +
   scale_fill_manual(values= "#73456D") +
   labs(y='Normalized Rrs',
-       x='Wavelength (nm)')+
+       x='Wavelength (nm)',
+       title='Spring')+
   theme_bw()+
   theme(legend.position = 'none')+
   xlim(c(500,800))+
@@ -130,7 +131,8 @@ p_Clearwater <-
     scale_color_manual(values="#B2CCF1") +
     scale_fill_manual(values= "#B2CCF1") +
     labs(y='Normalized Rrs',
-         x='Wavelength (nm)')+
+         x='Wavelength (nm)',
+         title='Clearwater')+
     theme_bw()+
     theme(legend.position = 'none')+
     xlim(c(500,800))+
@@ -149,7 +151,8 @@ p_EarlySummer <-
     scale_color_manual(values="#EE914A") +
     scale_fill_manual(values= "#EE914A") +
     labs(y='Normalized Rrs',
-         x='Wavelength (nm)')+
+         x='Wavelength (nm)',
+         title='Early Summer')+
     theme_bw()+
     theme(legend.position = 'none')+
     xlim(c(500,800))+
@@ -168,7 +171,8 @@ p_LateSummer <-
     scale_color_manual(values="#9AD67A") +
     scale_fill_manual(values= "#9AD67A") +
     labs(y='Normalized Rrs',
-         x='Wavelength (nm)')+
+         x='Wavelength (nm)',
+         title='Late Summer')+
     theme_bw()+
     theme(legend.position = 'none')+
     xlim(c(500,800))+
@@ -187,7 +191,8 @@ p_Fall <-
     scale_color_manual(values="#138E90") +
     scale_fill_manual(values= "#138E90") +
     labs(y='Normalized Rrs',
-         x='Wavelength (nm)')+
+         x='Wavelength (nm)',
+         title='Fall')+
     theme_bw()+
     theme(legend.position = 'none') +
     xlim(c(500,800)) 
@@ -196,7 +201,9 @@ p_RefSpectra <-
   ggplot() +
     geom_line(data = as.data.frame(Example_RRS), aes(x=nm, y=rrs)) +
     theme_bw() +
-    labs(x = "Wavelength (nm)", y = "Rrs") +
+    labs(x = "Wavelength (nm)", 
+         y = "Rrs",
+         title='Reference field spectra') +
     xlim(c(500,800)) +
     ylim(c(0,0.05))
 
