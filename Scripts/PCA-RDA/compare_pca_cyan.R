@@ -57,7 +57,7 @@ ggplot(dat_all, aes(x = AvgCI, y = value))+
   facet_wrap(~PC, scales = 'free_y')+
   theme_bw()+
   labs(y = "Mean Principal Component value", x = "Mean CyAN CI")
-<<<<<<< HEAD
+
 
 ggplot(dat_all, aes(x = MaxCI, y = value))+
   geom_smooth(#data = filter(dat_all, sensor=="DESIS"), 
@@ -69,6 +69,3 @@ ggplot(dat_all, aes(x = MaxCI, y = value))+
   facet_wrap(~PC, scales = 'free_y')+
   theme_bw()+
   labs(y = "Mean Principal Component value", x = "Maximum CyAN CI")
-
-=======
->>>>>>> 1f1141a4c7f3932be2a15612557820bd3b03d046
