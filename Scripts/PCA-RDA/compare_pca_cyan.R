@@ -58,7 +58,7 @@ ggplot(dat_all, aes(x = AvgCI, y = value))+
   theme_bw()+
   labs(y = "Mean Principal Component value", x = "Mean CyAN CI")
 
-
+ 
 ggplot(dat_all, aes(x = MaxCI, y = value))+
   geom_smooth(#data = filter(dat_all, sensor=="DESIS"), 
     method='lm', color = 'black')+
