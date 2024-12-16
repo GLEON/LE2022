@@ -106,7 +106,7 @@ p_Spring <-
   geom_ribbon(data=filter(new,season=="Spring"),aes(x=wavelength,y=normal,ymin=normal-normal_sd,ymax=normal+normal_sd,
                                                     fill=season),alpha=0.2)+
   geom_line(data=filter(new_desis,season=="Spring"),aes(wavelength,normal,color=season,group=date),size=1,linetype="dashed")+
-  geom_ribbon(data=filter(new_desis,season=="Spring"),aes(x=wavelength,y=normal,ymin=normal-normal_sd,ymax=normal+normal_sd,
+  geom_ribbon(data=filter(new_desis,season=="Spring"),aes(x=wavelength,group=date,y=normal,ymin=normal-normal_sd,ymax=normal+normal_sd,
                                                       fill=season),alpha=0.2)+
   scale_color_manual(values="#73456D") +
   scale_fill_manual(values= "#73456D") +
@@ -124,10 +124,10 @@ p_Clearwater <-
   ggplot()+
     geom_line(data=filter(new,season=="Clearwater"),aes(wavelength,normal,color=season,group=date),size=1)+
     geom_ribbon(data=filter(new,season=="Clearwater"),aes(x=wavelength,y=normal,ymin=normal-normal_sd,ymax=normal+normal_sd,
-                                                      fill=season),alpha=0.2)+
+                                                      fill=season,group=date),alpha=0.2)+
     geom_line(data=filter(new_desis,season=="Clearwater"),aes(wavelength,normal,color=season,group=date),size=1,linetype="dashed")+
     geom_ribbon(data=filter(new_desis,season=="Clearwater"),aes(x=wavelength,y=normal,ymin=normal-normal_sd,ymax=normal+normal_sd,
-                                                            fill=season),alpha=0.2)+
+                                                            fill=season,group=date),alpha=0.2)+
     scale_color_manual(values="#B2CCF1") +
     scale_fill_manual(values= "#B2CCF1") +
     labs(y='Normalized Rrs',
@@ -144,10 +144,10 @@ p_EarlySummer <-
   ggplot()+
     geom_line(data=filter(new,season=="Early Summer"),aes(wavelength,normal,color=season,group=date),size=1)+
     geom_ribbon(data=filter(new,season=="Early Summer"),aes(x=wavelength,y=normal,ymin=normal-normal_sd,ymax=normal+normal_sd,
-                                                          fill=season),alpha=0.2)+
+                                                          fill=season,group=date),alpha=0.2)+
     geom_line(data=filter(new_desis,season=="Early Summer"),aes(wavelength,normal,color=season,group=date),size=1,linetype="dashed")+
     geom_ribbon(data=filter(new_desis,season=="Early Summer"),aes(x=wavelength,y=normal,ymin=normal-normal_sd,ymax=normal+normal_sd,
-                                                                fill=season),alpha=0.2)+
+                                                                fill=season,group=date),alpha=0.2)+
     scale_color_manual(values="#EE914A") +
     scale_fill_manual(values= "#EE914A") +
     labs(y='Normalized Rrs',
@@ -164,10 +164,10 @@ p_LateSummer <-
   ggplot()+
     geom_line(data=filter(new,season=="Late Summer"),aes(wavelength,normal,color=season,group=date),size=1)+
     geom_ribbon(data=filter(new,season=="Late Summer"),aes(x=wavelength,y=normal,ymin=normal-normal_sd,ymax=normal+normal_sd,
-                                                            fill=season),alpha=0.2)+
+                                                            fill=season, group=date),alpha=0.2)+
     geom_line(data=filter(new_desis,season=="Late Summer"),aes(wavelength,normal,color=season,group=date),size=1,linetype="dashed")+
     geom_ribbon(data=filter(new_desis,season=="Late Summer"),aes(x=wavelength,y=normal,ymin=normal-normal_sd,ymax=normal+normal_sd,
-                                                                  fill=season),alpha=0.2)+
+                                                                  fill=season, group=date),alpha=0.2)+
     scale_color_manual(values="#9AD67A") +
     scale_fill_manual(values= "#9AD67A") +
     labs(y='Normalized Rrs',
@@ -184,10 +184,10 @@ p_Fall <-
   ggplot()+
     geom_line(data=filter(new,season=="Fall"),aes(wavelength,normal,color=season,group=date),size=1)+
     geom_ribbon(data=filter(new,season=="Fall"),aes(x=wavelength,y=normal,ymin=normal-normal_sd,ymax=normal+normal_sd,
-                                                           fill=season),alpha=0.2)+
+                                                           fill=season,group=date),alpha=0.2)+
     geom_line(data=filter(new_desis,season=="Fall"),aes(wavelength,normal,color=season,group=date),size=1,linetype="dashed")+
     geom_ribbon(data=filter(new_desis,season=="Fall"),aes(x=wavelength,y=normal,ymin=normal-normal_sd,ymax=normal+normal_sd,
-                                                                 fill=season),alpha=0.2)+
+                                                                 fill=season,group=date),alpha=0.2)+
     scale_color_manual(values="#138E90") +
     scale_fill_manual(values= "#138E90") +
     labs(y='Normalized Rrs',
